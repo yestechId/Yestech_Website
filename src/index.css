@@ -1,8 +1,53 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* custom class tetapi tetap menggunakan class pada tailwind */
 .flex-center {
-  @apply flex justify-center items-center;
+  @apply flex items-center justify-center;
+}
+.flex-between {
+  @apply flex items-center justify-between;
+}
+
+.container {
+  @apply m-auto w-[90%];
+}
+
+.menu-navbar {
+  @apply text-xl font-normal text-white;
+}
+
+.menu-footer {
+  @apply text-sm font-normal;
+}
+/* Add these styles to your CSS file */
+.margin-transition {
+  transition: margin 0.3s ease-in-out;
+  -webkit-transition: margin 0.3s ease-in-out;
+  -moz-transition: margin 0.3s ease-in-out;
+  -ms-transition: margin 0.3s ease-in-out;
+  -o-transition: margin 0.3s ease-in-out;
+}
+.transform-active {
+  transform: translateX(30rem) scale(1.3) translateY(-20px);
+}
+
+.button-primary {
+  @apply hover:bg-primary hover:text-white text-primary cursor-pointer transition-all;
+}
+
+.button-secondary {
+  @apply hover:bg-white hover:text-black text-white cursor-pointer transition-all;
+}
+
+.list-about-us {
+  @apply w-[40%] gap-5 text-lg font-bold flex items-center;
+}
+.list-item-about-us {
+  @apply w-7 h-7 p-[7px] flex-center text-white rounded-full bg-primary;
 }
