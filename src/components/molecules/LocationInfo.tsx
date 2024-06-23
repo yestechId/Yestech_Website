@@ -12,7 +12,7 @@ const LocationInfo: React.FC<LocationInfoProps> = ({ name, isHovered, handleMous
       infoContent = (
         <div
           onMouseEnter={() => handleMouseEnter(name)}
-          className="absolute -left-[24rem] overflow-auto -top-[28rem] z-30 mt-2 p-10"
+          className="absolute -left-[24rem] overflow-auto -top-[28rem] z-50 mt-2 p-10"
         >
           <div className="p-5 bg-white rounded-t-[40px] w-[423px] border-2 border-[#CCCCCC] rounded-bl-[40px]">
             <h3 className="mb-5 text-lg font-semibold text-center text-secondary">{name}</h3>

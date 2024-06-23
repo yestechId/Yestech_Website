@@ -6,14 +6,16 @@ import { FaLocationDot } from 'react-icons/fa6'
 const MapView: React.FC = () => {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null)
   const [city, setCity] = useState<string | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isModalOpenVersiWeb, setIsModalOpenVersiWeb] = useState<boolean>(false)
+  const [isModalOpenVersiMobile, setIsModalOpenVersiMobile] = useState<boolean>(false)
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [mapBackgroundStyle, setMapBackgroundStyle] = useState<any>({
     transform: 'translate(0%, 0%) scale(1)',
     transition: 'transform 0.5s ease-in-out'
   })
   const onClose = () => {
-    setIsModalOpen(false)
+    setIsModalOpenVersiWeb(false)
     setMapBackgroundStyle({
       transform: 'translate(0%, 0%) scale(1)',
       transition: 'transform 0.5s ease-in-out'
@@ -25,7 +27,7 @@ const MapView: React.FC = () => {
   }
   const setModal = (name: string) => {
     setCity(name)
-    setIsModalOpen(true)
+    setIsModalOpenVersiWeb(true)
     setMapBackgroundStyle({
       transform: 'translate(-10%, -10%) scale(1.2)',
       transition: 'transform 0.5s ease-in-out'
@@ -36,6 +38,11 @@ const MapView: React.FC = () => {
     setHoveredLocation(null)
   }
 
+  const selectPartner = (name: string) => {
+    setCity(name)
+    setIsModalOpenVersiMobile(true)
+  }
+
   const locations = [
     { name: 'Jabodetabek', top: { md: 63, xs: 61.5 }, left: { md: 27.5, xs: 31 } },
     { name: 'Jogjakarta', top: { md: 71, xs: 71.5 }, left: { md: 33, xs: 41 } },
@@ -44,7 +51,7 @@ const MapView: React.FC = () => {
   ]
 
   return (
-    <section className="h-[980px] bg-[#10121D] overflow-hidden">
+    <section className="h-min pb-20 bg-[#10121D] overflow-hidden">
       <div className="relative md:w-[90%] mx-auto xs:w-full">
         <h2 className="relative z-20 pt-20 xs:text-xl md:text-2xl font-bold text-center xs:text-white md:text-[#CCCCCC] flex flex-col md:mb-0 xs:mb-5">
           Yes Tech Strategic Partners
@@ -56,7 +63,7 @@ const MapView: React.FC = () => {
         {/* bg liner peta versi mobile */}
         <img
           src="/images/home/gradient.svg"
-          className="top-0 w-full h-[68%] z-10 left-0 right-0 md:hidden absolute object-cover"
+          className="top-0 w-full h-[55%]  z-10 left-0 right-0 md:hidden absolute object-cover"
           alt="image [peta]:"
         />
 
@@ -84,16 +91,9 @@ const MapView: React.FC = () => {
               onMouseLeave={handleMouseLeave}
               onClick={() => setModal(location.name)}
             >
-              {location.name === 'Jogjakarta' ? (
-                <h3 className="font-semibold text-white xs:text-xs md:text-sm md:block xs:hidden">{location.name}</h3>
-              ) : (
-                <h3 className="font-semibold text-white xs:text-xs md:text-sm">{location.name}</h3>
-              )}
+              <h3 className="font-semibold text-white xs:text-xs md:text-sm">{location.name}</h3>
 
               <img src="/images/home/location.svg" className="h-auto xs:w-10 md:w-14" alt="Icon Location" />
-              {location.name === 'Jogjakarta' ? (
-                <h3 className="-mt-2 font-semibold text-white xs:text-xs md:text-sm md:hidden">{location.name}</h3>
-              ) : null}
 
               <LocationInfo
                 name={location.name}
@@ -107,15 +107,13 @@ const MapView: React.FC = () => {
           {locations.map((location) => (
             <div
               key={location.name}
-              className={`absolute md:hidden flex flex-col items-center justify-center transform -translate-x-[50%] -translate-y-[50%] cursor-pointer
+              className={`absolute z-50 md:hidden flex flex-col items-center justify-center transform -translate-x-[50%] -translate-y-[50%] cursor-pointer
                 `}
               style={{
                 top: `${location.top.xs}%`,
                 left: `${location.left.xs}%`
               }}
-              onMouseEnter={() => handleMouseEnter(location.name)}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => setModal(location.name)}
+              onClick={() => selectPartner(location.name)}
             >
               {location.name === 'Jogjakarta' ? (
                 <h3 className="font-semibold text-white xs:text-xs md:text-sm md:block xs:hidden">{location.name}</h3>
@@ -123,32 +121,30 @@ const MapView: React.FC = () => {
                 <h3 className="font-semibold text-white xs:text-xs md:text-sm">{location.name}</h3>
               )}
 
-              <img src="/images/home/location.svg" className="h-auto xs:w-10 md:w-14" alt="Icon Location" />
+              {location.name == city ? (
+                <div className="relative xs:w-10 md:w-14">
+                  <div className="absolute inset-0 bg-primary blur-xl"></div>
+                  <img src="/images/home/location.svg" className="relative w-full" alt="Icon Location" />
+                </div>
+              ) : (
+                <img src="/images/home/location.svg" className="h-auto xs:w-10 md:w-14" alt="Icon Location" />
+              )}
               {location.name === 'Jogjakarta' ? (
                 <h3 className="-mt-2 font-semibold text-white xs:text-xs md:text-sm md:hidden">{location.name}</h3>
               ) : null}
-
-              {/* Modal untuk menampilkan informasi detail */}
-              {/* <Modal isOpen={isModalOpen} onClose={handleModalClose}> */}
 
               <LocationInfo
                 name={location.name}
                 isHovered={hoveredLocation === location.name}
                 handleMouseEnter={handleMouseEnter}
               />
-              {/* </Modal> */}
-
-              {/* <LocationInfo
-                  name={location.name}
-                  isHovered={hoveredLocation === location.name}
-                  handleMouseEnter={handleMouseEnter}
-                /> */}
             </div>
           ))}
         </div>
       </div>
 
-      {isModalOpen ? (
+      {/* Modal Versi Web */}
+      {isModalOpenVersiWeb ? (
         <div className="fixed inset-0 z-[9999] flex items-center justify-end bg-black bg-opacity-50 p-10 ">
           <div className="flex items-start gap-5">
             <button onClick={onClose} className="p-3 text-white focus:outline-none">
@@ -218,6 +214,76 @@ const MapView: React.FC = () => {
                   </li>
                   <li>
                     <FaTiktok className="w-7 h-7" />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Modal Versi Mobile */}
+      {isModalOpenVersiMobile ? (
+        <div className="w-[92%] mx-auto flex items-center justify-end  md:hidden ">
+          <div className="flex flex-col items-start gap-5">
+            <div className="w-full flex-between">
+              <h2 className="text-2xl font-bold text-white line-clamp-1">{city}</h2>
+              <p className="text-xs font-normal text-[#565E93]">*tap the logo for information</p>
+            </div>
+            <div className="flex flex-col w-full p-5 overflow-auto bg-white rounded-lg h-min ">
+              <div className="flex items-center justify-between">
+                <div className="flex-center">
+                  <img src="/icons/polygon-right.svg" alt="icon polygon right" className="w-full" />
+                </div>
+                <div className="w-[87px] h-auto overflow-hidden">
+                  <img src="/images/home/partner/jabodetabek/infinite-live.png" />
+                </div>
+                <div className="flex-center">
+                  <img src="/icons/polygon-left.svg" alt="icon polygon left" className="w-full" />
+                </div>
+              </div>
+              <div className="border-t border-[#EAEAEA] px-3 md:px-5 pt-5 flex flex-col gap-1 md:gap-3 ">
+                <h3 className="text-lg font-bold md:text-xl">PT. INFINITE LIVE PRODUCTION</h3>
+                <p className="text-xs font-normal leading-4 md:text-sm md:leading-5">
+                  Lorem ipsum dolor sit amet consectetur. Hendrerit elementum maecenas sollicitudin sem ultrices. Non
+                  cras ornare amet erat sit. Id morbi massa euismod semper dignissim consequat eu. Cras quis magna
+                  rutrum aenean gravida vitae varius.
+                </p>
+              </div>
+              <div className="flex flex-col gap-0 pt-3 pr-5 md:pr-10 md:pt-5 md:ps-5 ps-3">
+                <h3 className="mb-2 text-lg font-bold md:text-xl">Contact Information</h3>
+                <ul className="flex flex-col gap-3 md:gap-5">
+                  <li className="flex items-center justify-start gap-5 md:gap-8">
+                    <FaPhoneVolume className="w-5 h-5 -rotate-45" />
+                    <p className="w-full text-xs font-medium md:text-sm">+62-812-8816-2075</p>
+                  </li>
+                  <li className="flex items-center justify-start gap-8">
+                    <FaEnvelope className="w-5 h-5 font-bold" />
+                    <p className="w-full text-xs font-medium md:text-sm">ngi-infinite@gmail.com</p>
+                  </li>
+                  <li className="flex items-start justify-start gap-8">
+                    <FaLocationDot className="w-5 h-5" />
+                    <p className="w-full text-xs font-medium leading-4 md:leading-5 md:text-sm">
+                      Jl. Palem VII No.78, RT.2/RW.8, Petukangan Utara, Kec. Pesanggrahan, Kota Jakarta Selatan, Daerah
+                      Khusus Ibukota Jakarta 12260
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-col gap-3 mt-5 flex-center md:mt-3">
+                <p className="text-xs md:text-sm text-primary">ngi-infinite.com</p>
+                <ul className="w-full gap-3 md:gap-8 flex-center ">
+                  <li>
+                    <FaInstagram className="w-4 h-4 md:w-7 md:h-7" />
+                  </li>
+                  <li>
+                    <FaTwitter className="w-4 h-4 md:w-7 md:h-7" />
+                  </li>
+                  <li>
+                    <FaFacebook className="w-4 h-4 md:w-7 md:h-7" />
+                  </li>
+                  <li>
+                    <FaTiktok className="w-4 h-4 md:w-7 md:h-7" />
                   </li>
                 </ul>
               </div>

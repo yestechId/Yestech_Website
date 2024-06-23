@@ -23,7 +23,7 @@ body {
 }
 
 .menu-footer {
-  @apply text-sm font-normal;
+  @apply font-normal;
 }
 /* Add these styles to your CSS file */
 .margin-transition {
@@ -46,8 +46,13 @@ body {
 }
 
 .list-about-us {
-  @apply w-[40%] gap-5 text-lg font-bold flex items-center;
+  @apply w-[40%]   font-bold flex items-center;
 }
 .list-item-about-us {
-  @apply w-7 h-7 p-[7px] flex-center text-white rounded-full bg-primary;
+  @apply flex-center text-white rounded-full bg-primary;
+}
+
+.bg-blur-blue {
+  backdrop-filter: blur(50px);
+  background-color: rgba(0, 0, 255, 0.8); /* Adjust the blue color and opacity as needed */
 }
