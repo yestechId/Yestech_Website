@@ -4,52 +4,54 @@ import { Link } from 'react-router-dom'
 const NewsRead = () => {
   return (
     <>
-      <header className="w-full h-[391px]  bg-[url('/images/news-read/banner.svg')] bg-cover rounded-br-[50px]">
-        <div className="container flex items-center justify-center w-full h-full px-16">
-          <h1 className="text-4xl font-bold text-center text-white">
+      <header className="w-full  h-[351px] md:h-[391px] bg-center   md:bg-[url('/images/news/hero.png')] xs:bg-[url('/images/news/banner-mobile.svg')] bg-cover rounded-br-[50px]">
+        <div className="container  flex items-center justify-center w-full h-full px-0 md:px-16">
+          <h1 className="text-[1.50rem] md:text-4xl font-bold text-center text-white">
             Explore Wonderful Visuals of YES TECH at Infocomm 2024
           </h1>
         </div>
       </header>
       <section className="container">
-        <div className="w-[95%] mx-auto p-5 my-10 flex justify-between gap-5 items-start  ">
-          <div className="w-[70%] flex flex-col gap-3">
-            <div className="w-full p-8 bg-bgSecondary rounded-[12px] flex flex-col gap-5">
-              <h2 className="text-2xl font-medium text-black">
+        <div className="md:w-[95%] w-full mx-auto p-0 md:p-5 my-10 flex justify-between gap-5 items-start  ">
+          <div className="md:w-[70%] w-full  flex flex-col gap-3">
+            <div className="w-full p-0 md:p-8 bg-transparent md:bg-bgSecondary rounded-[12px] flex flex-col gap-5">
+              <h2 className="text-xl text-center md:text-left  md:text-2xl font-semibold md:font-medium text-black">
                 Explore Wonderful Visuals of YES TECH at Infocomm 2024
               </h2>
-              <img src="/images/news/banner.png" className="w-[874px] h-auto" />
-              <ul className="flex-center gap-10 text-xs text-[#3E3232] opacity-70 font-medium">
-                <li className="gap-3 flex-center ">
-                  <div className="flex-center">
-                    <img src="/icons/date.svg" alt="date icon" className="w-full" />
-                  </div>
-                  <h3>July 14 , 2022</h3>
-                </li>
-                <li className="gap-3 flex-center">
-                  <div className="flex-center">
-                    <img src="/icons/comment.svg" alt="comment icon" className="w-full" />
-                  </div>
-                  <h3>comments : 35</h3>
-                </li>
-                <li className="gap-2 flex-center">
-                  <div className="flex-center">
-                    <img src="/icons/category.svg" alt="category icon" className="w-full" />
-                  </div>
-                  <h3>Categgory Sport</h3>
-                </li>
-              </ul>
+              <div className="flex w-full flex-col-reverse md:flex-col justify-center gap-5 ">
+                <img src="/images/news/banner.png" className="w-[874px] h-auto" />
+                <ul className="flex justify-between md:justify-center items-center -mt-3 md:-mt-0 gap-2 md:gap-10 text-[10px] md:text-xs text-[#3E3232] opacity-100 md:opacity-70 font-medium ">
+                  <li className="gap-3 flex-center ">
+                    <div className="flex-center">
+                      <img src="/icons/date.svg" alt="date icon" className="w-full" />
+                    </div>
+                    <h3>July 14 , 2022</h3>
+                  </li>
+                  <li className="gap-3 flex-center">
+                    <div className="flex-center">
+                      <img src="/icons/comment.svg" alt="comment icon" className="w-full" />
+                    </div>
+                    <h3>comments : 35</h3>
+                  </li>
+                  <li className="gap-2 flex-center">
+                    <div className="flex-center">
+                      <img src="/icons/category.svg" alt="category icon" className="w-full" />
+                    </div>
+                    <h3>Categgory Sport</h3>
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            <div className="flex flex-col w-full gap-5 p-8">
-              <article className="text-xl font-medium">
+            <div className="flex flex-col w-full gap-3 md:gap-5 px-0 pb-0 md:px-8 md:pb-8 ">
+              <article className="text-sm md:text-xl font-semibold md:font-medium">
                 InfoComm, the largest pro-AV event in the US, is happening from June 12 to 14. It is a great opportunity
                 for you and YES TECH to meet face-to-face and discuss the latest products and cutting-edge solutions
                 together. YES TECH is always dedicated to bringing you a wonderful visual experience:
               </article>
 
-              <article className="text-lg font-normal text-[#3E3232]">
-                <h3 className="mb-3 text-xl font-bold text-black"> Outdoor Rental Products premier at the show! </h3>
+              <article className="text-sm md:text-lg font-medium md:font-normal text-[#3E3232]">
+                <h3 className="mb-3 text-lg md:text-2xl font-bold ">Outdoor Rental Products premier at the show!</h3>
                 The MT transparent screen & MU Series, designed for outdoor applications with quick installation, are
                 about to refresh your perspective. The MU Series has a large size option of 500*1000*72.5mm to
                 facilitate setup. Combined with a creative stage featuring the classic MG7S P3.9 as the dance floor,
@@ -58,12 +60,12 @@ const NewsRead = () => {
               </article>
             </div>
 
-            <div className="flex flex-col gap-5 p-8">
-              <div className="flex-center w-[80%] mx-auto">
+            <div className="flex flex-col gap-3 md:gap-5 px-0 pb-0 md:px-8 md:pb-8">
+              <div className="flex-center w-full md:w-[80%] mx-auto">
                 <img src="/images/news-read/news-list.png" className="w-full h-auto rounded-md overflow-hidde" />
               </div>
-              <article className="text-lg font-normal text-[#3E3232] mt-8">
-                <h3 className="mb-3 text-xl font-bold text-black">
+              <article className="text-sm md:text-lg font-medium md:font-normal text-[#3E3232] mt-0 md:mt-8">
+                <h3 className="mb-3 text-lg md:text-2xl font-bold ">
                   Indoor Products Deliver You Crystal-Clear Visuals!
                 </h3>
                 We will also showcase our best-sellers like the MG6S P1.9 and MG6S Cube P1.9, which form an entire
@@ -72,18 +74,18 @@ const NewsRead = () => {
               </article>
             </div>
 
-            <div className="flex flex-col items-end justify-center w-full gap-5 p-8">
-              <div className="flex-center flex-col w-[60%]">
+            <div className="flex flex-col items-end justify-center w-full gap-5 px-5 py-5 md:px-8 md:py-8">
+              <div className="flex-center flex-col w-full md:w-[60%]">
                 <img src="/images/news-read/list2.png" className="w-[617px] h-auto rounded-md overflow-hidde" />
-                <ul className="flex-col w-full gap-1 mt-5 text-sm font-medium flex-center">
-                  <li>
+                <ul className="flex-col w-full gap-1 mt-2 md:mt-5 text-xs text-center md:text-sm font-medium flex-center">
+                  <li className="leading-6 md:leading-5">
                     Be there and experience our products firsthand at Booth
-                    <span className="font-bold"> NO.: W3200</span>
+                    <span className="font-bold"> NO.: W3200 </span>
+                    Jun.12-14, 2024
                   </li>
-                  Jun.12-14, 2024
                   <li>VIP CODE: HUN357</li>
                   <li>Las Vegas Convention Center | Las Vegas, NV</li>
-                  <li className="text-[#223DFE]">
+                  <li className="text-primary md:text-sm text-[10px]">
                     <Link to={'/'}>Register Now: https://www.infocommshow.org/register</Link>
                   </li>
                 </ul>
@@ -92,7 +94,7 @@ const NewsRead = () => {
           </div>
 
           {/* sidebar */}
-          <div className="w-[30%] flex flex-col gap-5">
+          <div className="w-[30%] hidden md:flex flex-col gap-5">
             <ul className="w=full flex justify-between items-center">
               <li className="opacity-70">
                 <button className="bg-bgSecondary flex-center gap-3 py-2 px-4 rounded-md text-[#3E3232] font-medium text-xs">
@@ -200,15 +202,15 @@ const NewsRead = () => {
             </ul>
           </div>
         </div>
-        <div className="flex items-center justify-between pt-10 mb-20 w-[85%] mx-auto border-t-2 border-[#E6E6E6]">
-          <button className="w-64 py-2 mt-5 font-semibold text-black transition-all border-2 border-black rounded-full hover:bg-primary hover:text-white hover:border-primary">
-            Return
-          </button>
-          <button className="w-64 py-2 mt-5 font-semibold border-2 rounded-full button-primary text-primary border-primary">
-            Next Article
-          </button>
-        </div>
       </section>
+      <div className="flex items-center justify-between pt-5 md:pt-10 mb-10 md:mb-20 w-full md:w-[85%] mx-auto border-t-2 border-[#E6E6E6] px-5 md:px-0">
+        <button className="w-36 md:w-64 py-1 md:py-2 mt-5 font-semibold text-black transition-all border-2 border-black rounded-full hover:bg-primary hover:text-white hover:border-primary">
+          Return
+        </button>
+        <button className="w-32 md:w-64 py-1 md:py-2 mt-5 font-semibold border-2 rounded-full button-primary text-primary border-primary">
+          Next Article
+        </button>
+      </div>
     </>
   )
 }

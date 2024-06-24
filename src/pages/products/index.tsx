@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const Product = () => {
   return (
     <>
-      <header className="w-full h-[351px] md:h-[391px]   bg-[url('/images/products/banner-product.svg')] bg-cover rounded-br-[50px]">
+      <header className="w-full h-[351px] md:h-[391px] bg-center xs:bg-[url('/images/products/banner-product-mobile.svg')]   md:bg-[url('/images/products/banner-product.svg')] bg-cover rounded-br-[50px]">
         <div className="container flex-col w-full h-full pt-8 flex-between md:flex-row md:pt-0">
           <div className="flex flex-col w-full  md:w-[45%] gap-3 mt-16 ps-0 md:ps-10 text-center md:text-left">
             <h2 className="font-bold text-white text-3xl md:text-[5rem] md:mb-10 mb-0">Products</h2>
