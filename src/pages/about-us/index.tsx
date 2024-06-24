@@ -3,7 +3,7 @@ import { FaLongArrowAltRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Certificate from '../../components/organisms/Certificate'
 
-const Product = () => {
+const AboutUs = () => {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -248,4 +248,4 @@ const Product = () => {
   )
 }
 
-export default Product
+export default AboutUs

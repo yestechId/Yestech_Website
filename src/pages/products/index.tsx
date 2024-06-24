@@ -1,89 +1,106 @@
 import { Link } from 'react-router-dom'
 
-const AboutUs = () => {
+const Product = () => {
   return (
     <>
-      <header className="w-full h-[391px]  bg-[url('/images/products/banner-product.svg')] bg-cover rounded-br-[50px]">
-        <div className="container w-full h-full flex-between">
-          <div className="flex flex-col w-[45%] gap-3 mt-16 ps-10">
-            <h2 className="font-bold text-white text-[5rem]">Products</h2>
-            <p className="text-white font-semibold text-[15px] w-[70%]">
+      <header className="w-full h-[351px] md:h-[391px]   bg-[url('/images/products/banner-product.svg')] bg-cover rounded-br-[50px]">
+        <div className="container flex-col w-full h-full pt-8 flex-between md:flex-row md:pt-0">
+          <div className="flex flex-col w-full  md:w-[45%] gap-3 mt-16 ps-0 md:ps-10 text-center md:text-left">
+            <h2 className="font-bold text-white text-3xl md:text-[5rem] md:mb-10 mb-0">Products</h2>
+            <p className="text-white font-semibold w-full text-sm md:text-[15px] md:w-[70%]">
               YES TECH offers a wide range of competitive and cut-edge LED displays to meet your diverse needs.
             </p>
           </div>
 
-          <div className="relative flex items-center justify-end w-[55%] gap-10 pt-16 ">
-            <img src="/images/products/product-display-banner.svg" className="absolute left-0 z-10" />
-            <img src="/images/products/product-display-banner-right.svg" className="absolute right-0" />
+          <div className="relative  flex items-center justify-end w-full md:w-[55%] gap-10 pt-0 md:pt-16 ">
+            <img
+              src="/images/products/product-display-banner.svg"
+              className="absolute left-0 z-10 w-[238px] md:w-[539px] md:-mt-0 -mt-32"
+            />
+            <img
+              src="/images/products/product-display-banner-right.svg"
+              className="absolute right-0 md:-mt-0 -mt-32 w-[158px] md:w-[389px]"
+            />
           </div>
         </div>
       </header>
 
-      <section className="container flex items-start justify-between gap-5 pt-8">
-        <div className="w-[20%] p-4 bg-[#F8F8F8]">
-          <ul className="flex flex-col gap-3">
-            <li className="p-3 text-center text-white rounded-md bg-primary">Rental & Staging</li>
-            <li className="p-3 text-center rounded-md text-slate-400 ">Rental & Staging</li>
-            <li className="p-3 text-center rounded-md text-slate-400 ">Rental & Staging</li>
-            <li className="p-3 text-center rounded-md text-slate-400 ">Rental & Staging</li>
+      <section className="flex overflow-hidden flex-col items-start justify-between w-full gap-5 pt-8 md:w-[90%] mx-auto md:flex-row">
+        {/* versi mobile */}
+        <div className="relative flex justify-end w-full md:hidden">
+          <input
+            type="search"
+            placeholder="Search Global"
+            className="flex justify-end w-[95%] mx-auto md:w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
+          />
+          <div className="absolute text-center right-7 top-3 ">
+            <img src="/icons/search.svg" alt="search icon" className="w-full" />
+          </div>
+        </div>
+        <div className="w-full md:w-[20%] overflow-x-auto p-0 md:p-4 bg-[#F8F8F8]">
+          <ul className="flex flex-row w-full gap-3 overflow-x-scroll md:overflow-x-hidden md:flex-col">
+            <li className="flex-shrink-0 p-3 px-4 text-center text-white rounded-none md:rounded-md md:w-full bg-primary">
+              Rental & Staging
+            </li>
+            <li className="flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full text-slate-400">
+              DOOH
+            </li>
+            <li className="flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full text-slate-400">
+              Comercial
+            </li>
+            <li className="flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full text-slate-400">
+              Rental & Staging
+            </li>
           </ul>
-          <h4 className="text-[#A4A4A4] text-sm font-semibold my-5">Operating Environment</h4>
-          <ul className="flex flex-col gap-5">
+
+          <h4 className="text-[#A4A4A4] text-sm font-semibold my-5 hidden md:block">Operating Environment</h4>
+          <ul className="flex flex-row justify-center gap-5 my-5 md:justify-start md:flex-col md:my-0">
             <li className="flex items-center justify-start gap-3">
               <input type="checkbox" id="all" name="all" className="w-4 h-4" />
-              <label htmlFor="all" className="text-[#222222 text-lg font-normal]">
+              <label htmlFor="all" className="text-[#222222] text-sm md:text-lg font-normal">
                 All
               </label>
             </li>
             <li className="flex items-center justify-start gap-3">
-              <input type="checkbox" id="all" name="all" className="w-4 h-4" />
-              <label htmlFor="all" className="text-[#222222 text-lg font-normal]">
+              <input type="checkbox" id="indoor" name="indoor" className="w-4 h-4" />
+              <label htmlFor="indoor" className="text-[#222222] text-sm md:text-lg font-normal">
                 Indoor
               </label>
             </li>
             <li className="flex items-center justify-start gap-3">
-              <input type="checkbox" id="all" name="all" className="w-4 h-4" />
-              <label htmlFor="all" className="text-[#222222 text-lg font-normal]">
-                Outdor
+              <input type="checkbox" id="outdoor" name="outdoor" className="w-4 h-4" />
+              <label htmlFor="outdoor" className="text-[#222222] text-sm md:text-lg font-normal">
+                Outdoor
               </label>
             </li>
           </ul>
         </div>
 
-        <div className="w-[80%]">
-          <div className="relative flex justify-end w-full">
+        <div className="w-[90%] mx-auto md:w-[80%]">
+          {/* versi dkstop */}
+          <div className="relative justify-end hidden w-full md:flex">
             <input
               type="search"
               placeholder="Search Global"
-              className="flex justify-end w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
+              className="flex justify-end w-full md:w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
             />
             <div className="absolute text-center right-4 top-3 ">
               <img src="/icons/search.svg" alt="search icon" className="w-full" />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3 overflow-hidden border-t-2 border-[#DEDEDE] pt-5 mt-5 mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 overflow-hidden border-0 md:border-t-2 border-[#DEDEDE] pt-5 mt-5 mb-10 md:mb-20">
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px] w-[335px] overflow-hidden flex  flex-col"
-            >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -91,12 +108,16 @@ const AboutUs = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -104,12 +125,16 @@ const AboutUs = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -117,12 +142,16 @@ const AboutUs = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -130,12 +159,16 @@ const AboutUs = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -143,12 +176,16 @@ const AboutUs = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -156,12 +193,33 @@ const AboutUs = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
             >
-              <img src="/images/products/product-list.png" alt="product item" className="  h-[335px] w-full " />
-              <div className="px-5 p-b">
-                <h3 className="text-2xl font-bold text-black ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-sm font-semibold flex-flex-col">
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
+                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
+                  <p>Cabinet size: 500*500*73mm</p>
+                </div>
+              </div>
+            </Link>
+            <Link
+              to="/detail-product"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
+            >
+              <img
+                src="/images/products/product-list.png"
+                alt="product item"
+                className=" h-[152px] md:h-[335px] w-full "
+              />
+              <div className="px-2 md:px-5">
+                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
+                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
                   <p>Pixel pitch: 2.9/3.9/5.9mm </p>
                   <p>Cabinet size: 500*500*73mm</p>
                 </div>
@@ -174,4 +232,4 @@ const AboutUs = () => {
   )
 }
 
-export default AboutUs
+export default Product
