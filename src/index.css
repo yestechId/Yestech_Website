@@ -19,7 +19,7 @@ body {
 }
 
 .menu-navbar {
-  @apply text-xl font-normal text-white;
+  @apply text-xl font-medium;
 }
 
 .menu-footer {
