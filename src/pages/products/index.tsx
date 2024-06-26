@@ -31,7 +31,7 @@ const Product = () => {
           <input
             type="search"
             placeholder="Search Global"
-            className="flex justify-end w-[95%] mx-auto md:w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
+            className="flex justify-end w-[90%] mx-auto md:w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
           />
           <div className="absolute text-center right-7 top-3 ">
             <img src="/icons/search.svg" alt="search icon" className="w-full" />
