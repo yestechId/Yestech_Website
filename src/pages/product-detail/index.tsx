@@ -12,7 +12,7 @@ const DetailProduct = () => {
         />
         <div className="container flex-col-reverse w-full h-full flex-between md:flex-row ">
           <div className="flex flex-col w-full md:w-[50%] -top-10 md:-top-0 relative gap-3 md:mt-16 md:ps-10">
-            <h2 className="font-bold text-white text-3xl  pb-0 md:pb-5 md:text-[5rem]">MG9 Series</h2>
+            <h2 className="font-bold text-white text-3xl md:text-5xl  pb-0 md:pb-5 lg:text-[5rem]">MG9 Series</h2>
             <div className="flex items-end justify-start ">
               <span className="w-40 h-[6px] bg-primary"></span>
               <span className="w-full h-[1px] bg-white"></span>
@@ -69,7 +69,7 @@ const DetailProduct = () => {
           <div className="w-full md:w-[80%] py-10 md:py-32 mx-auto h-full flex flex-col md:gap-10 gap-5">
             <div className="flex flex-col justify-between w-full px-5 md:flex-row md:px-0">
               <div className="flex gap-10 md:gap-20 flex-col w-full md:w-[50%] mb-5 md:mb-0">
-                <h3 className=" text-2xl md:text-4xl  font-bold leading-[2rem] md:leading-[3rem] text-white">
+                <h3 className=" text-2xl lg:text-4xl  font-bold leading-[2rem] md:leading-[3rem] text-white">
                   The LED lamp thrus increased greatly compared with common cabinet
                 </h3>
                 <img src="/images/detail-product/stable.png" />
@@ -79,12 +79,12 @@ const DetailProduct = () => {
                 <img src="/images/detail-product/led-lamp.png" className="w-full h-auto" />
               </div>
             </div>
-            <div className="flex-col-reverse w-full px-5 mt-10 md:mt-0 md:flex-row flex-between md:px-0 ">
+            <div className="flex-col-reverse w-full px-5 mt-10 md:gap-8 xs:gap-0 lg:gap-0 md:ga md:mt-0 md:flex-row flex-between md:px-0 ">
               <div className="mt-5 flex-center md:mt-0">
                 <img src="/images/detail-product/enhanced.png" className="w-full h-auto" />
               </div>
               <div className="flex flex-col items-start justify-center gap-5 text-white">
-                <h3 className="text-3xl font-bold">Enhanced Structure</h3>
+                <h3 className="text-2xl font-bold lg:text-3xl">Enhanced Structure</h3>
                 <p className="text-xs font-light md:text-sm">
                   Hanging height can be reach 15m. (Refer to 6 times safety factor)
                 </p>
@@ -221,19 +221,19 @@ const DetailProduct = () => {
           </div>
         </section>
 
-        <section className=" overflow-auto mx-auto w-[90%] md:w-[80%] flex-center flex-col my-10 md:my-20 h-min">
+        <section className=" overflow-auto mx-auto w-[90%] lg:w-[80%] flex-center flex-col my-10 md:my-20 h-min">
           <div className="flex-col w-full gap-5 mb-5 flex-center ">
             <h3 className="text-2xl font-bold text-center md:text-3xl text-secondary">RELATED PRODUCT & ACCESSORIES</h3>
           </div>
-          <div className="grid grid-cols-2 gap-5 overflow-hidden md:gap-10 md:grid-cols-3 ">
+          <div className="grid grid-cols-2 gap-5 overflow-hidden md:gap-10 lg:grid-cols-3 ">
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
             >
               <img
                 src="/images/detail-product/related-product-1.png"
                 alt="product item"
-                className=" h-[152px] md:h-[335px] w-full "
+                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
               />
               <div className="px-2 md:px-5">
                 <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
@@ -245,12 +245,12 @@ const DetailProduct = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden flex  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
             >
               <img
                 src="/images/detail-product/related-product-2.png"
                 alt="product item"
-                className=" h-[152px] md:h-[335px] w-full "
+                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
               />
               <div className="px-2 md:px-5">
                 <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
@@ -262,12 +262,12 @@ const DetailProduct = () => {
             </Link>
             <Link
               to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:h-[435px]  overflow-hidden  hidden md:flex bg-red-600  flex-col"
+              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
             >
               <img
                 src="/images/detail-product/related-product-3.png"
                 alt="product item"
-                className=" h-[152px] md:h-[335px] w-full "
+                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
               />
               <div className="px-2 md:px-5">
                 <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>

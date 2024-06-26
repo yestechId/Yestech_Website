@@ -39,8 +39,8 @@ const News = () => {
               <div className="w-full h-auto">
                 <img src="/images/news/banner.png" className="w-full h-auto" />
               </div>
-              <div className="flex flex-col items-start justify-start text-sm md:text-[16px]  h-full gap-10 w-full md:w-[35%] text-[#444444]">
-                <p>
+              <div className="flex overflow-y-auto  flex-col items-start justify-start text-sm lg:text-[16px]  h-min gap-5 md:gap-0 lg:gap-10 w-full md:w-[35%] text-[#444444]">
+                <p className="xs:h-min md:h-[190px] lg:h-min xs:overflow-visible md:overflow-y-auto lg:overflow-visible">
                   InfoComm, the largest pro-AV event in the US, is happening from June 12 to 14. It is a great
                   opportunity for you and YES TECH to meet face-to-face and discuss the latest products and cutting-edge
                   solutions together. YES TECH is always dedicated to bringing you a wonderful visual experience:
@@ -51,7 +51,7 @@ const News = () => {
                 <div className="flex items-center justify-center w-full pb-5 md:pb-0 md:justify-start ">
                   <Link
                     to="/read-news"
-                    className="w-full py-2 mx-auto mt-0 font-semibold text-center border-2 rounded-full md:mt-5 md:w-60 md:px-12 button-primary border-primary"
+                    className="w-full py-2 mx-auto mt-0 font-semibold text-center border-2 rounded-full md:mt-5 lg:w-60 lg:px-12 button-primary border-primary"
                   >
                     Read More
                   </Link>

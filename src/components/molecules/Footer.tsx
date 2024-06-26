@@ -13,7 +13,7 @@ const Footer = () => {
           <span className="block w-full border-[1px] border-slate-800 my-5 md:hidden"></span>
 
           <div className="flex w-full my-2 md:my-0 gap-3 md:gap-0 md:w-[55%] items-center justify-between ">
-            <h4 className="text-xs font-normal text-white md:text-xl">We are looking for more strategic partner</h4>
+            <h4 className="text-xs font-normal text-white lg:text-xl">We are looking for more strategic partner</h4>
             <div className="flex items-center justify-center">
               <button className="py-2 text-sm font-semibold text-white transition-all border-2 rounded-full cursor-pointer w-36 md:text-lg md:w-56 hover:bg-primary hover:text-white border-primary">
                 Get Started
@@ -43,32 +43,32 @@ const Footer = () => {
 
           <ul className="gap-2 md:gap-5 text-white flex justify-start md:justify-between items-center w-full flex-wrap md:flex-nowrap md:w-[55%]">
             <li>
-              <Link to="/" className="text-xs menu-footer md:text-sm">
+              <Link to="/" className="text-xs menu-footer lg:text-sm">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/" className="text-xs menu-footer md:text-sm">
+              <Link to="/" className="text-xs menu-footer lg:text-sm">
                 Products
               </Link>
             </li>
             <li>
-              <Link to="/" className="text-xs menu-footer md:text-sm">
+              <Link to="/" className="text-xs menu-footer lg:text-sm">
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link to="/" className="text-xs menu-footer md:text-sm">
+              <Link to="/" className="text-xs menu-footer lg:text-sm">
                 Company Profile
               </Link>
             </li>
             <li>
-              <Link to="/" className="text-xs menu-footer md:text-sm">
+              <Link to="/" className="text-xs menu-footer lg:text-sm">
                 Case List
               </Link>
             </li>
             <li>
-              <Link to="/" className="text-xs menu-footer md:text-sm">
+              <Link to="/" className="text-xs menu-footer lg:text-sm">
                 YesTech Strategic Partners
               </Link>
             </li>

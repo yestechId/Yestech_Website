@@ -8,7 +8,7 @@ const ContactUs = () => {
       <p className="mb-3 text-xs font-normal text-white md:text-sm">
         Any question or remarks? Just write us a message!
       </p>
-      <div className="bg-transparent md:bg-white w-full md:w-[878px] md:h-[467px] rounded-md flex md:flex-row flex-col-reverse p-3 ">
+      <div className="bg-transparent md:bg-white w-full md:w-[758px] lg:w-[878px] md:h-[467px] rounded-md flex md:flex-row flex-col-reverse p-3 ">
         <div className='relative bg-[url("/images/contact-us/banner.png")] h-[357px] md:h-auto w-full md:w-[40%] rounded-md  bg-cover p-8 text-white flex flex-col gap-2 justify-start'>
           <h2 className="text-2xl font-medium">Contact Information</h2>
           <p className="text-sm font-normal text-[#C9C9C9]">Say something to start a live chat!</p>

@@ -28,7 +28,7 @@ const AboutUs = () => {
       <header className="w-full  h-[351px] md:h-[391px]  bg-[url('/images/about-us/banner-mobile.svg')] md:bg-[url('/images/about-us/banner.svg')] bg-center bg-cover rounded-br-[50px]">
         <div className="container flex flex-col items-center justify-center w-full h-full gap-5 px-0 md:px-16 md:flex-row md:gap-0">
           <div className="flex flex-col w-full md:w-[50%]">
-            <h2 className="font-bold md:text-left text-center text-white text-5xl md:text-[5rem]">About Us</h2>
+            <h2 className="font-bold md:text-left text-center text-white text-5xl lg:text-[5rem]">About Us</h2>
           </div>
           <div className=" flex items-start justify-start w-full md:w-[50%] flex-center ">
             <p className="text-sm font-medium text-center text-white md:text-left md:text-lg">
@@ -39,11 +39,11 @@ const AboutUs = () => {
       </header>
 
       <div className="flex flex-col justify-between md:flex-row">
-        <div className="relative flex items-start justify-between gap-5 w-full md:w-[20%]">
+        <div className="relative flex items-  start justify-between gap-5 w-full  md:w-[30%] lg:w-[20%] bg-white">
           <div
-            className={`${isScrolled ? 'md:fixed static w-full md:w-[20%]' : 'md:sticky static w-full'}  top-0 md:top-20 left-0 z-40 ps-0 md:ps-14 h-full px-2 md:pt-20 pt-0 border-r-2`}
+            className={`${isScrolled ? 'md:fixed static w-full md:w-[30%] lg:w-[20%]' : 'md:sticky static w-full'}  top-0 md:top-24 lg:top-20 left-0 z-40 ps-0 md:ps-10 lg:ps-14 h-full px-2 lg:pt-20 pt-0 border-r-2`}
           >
-            <ul className="flex flex-row w-full gap-3 px-0 overflow-x-scroll bg-white md:overflow-x-visible md:px-5 md:flex-col ">
+            <ul className="flex flex-row w-full gap-3 px-0 overflow-x-scroll bg-white lg:overflow-x-visible md:px-5 md:flex-col ">
               <li className="flex-shrink-0 p-3 text-center text-white rounded-sm bg-primary">Company Profile</li>
               <li className="flex-shrink-0 p-3 text-center rounded-sm text-slate-400 ">Corporate Culture</li>
               <li className="flex-shrink-0 p-3 text-center rounded-sm text-slate-400 ">History</li>
@@ -52,10 +52,10 @@ const AboutUs = () => {
           </div>
         </div>
 
-        <div className="relative w-full md:w-[80%] ">
-          <div className="w-full gap-5 px-5 pt-5 mb-20 md:pt-10 md:px-14">
-            <div className="flex flex-col items-start justify-between w-full md:flex-row">
-              <div className="flex flex-col w-full md:w-[55%]">
+        <div className="relative w-full md:w-[70%] lg:w-[80%] ">
+          <div className="w-full gap-5 px-5 pt-5 mb-20 lg:pt-10 lg:px-14">
+            <div className="flex flex-col items-start justify-between w-full lg:flex-row">
+              <div className="flex flex-col w-full md:w-[80%] lg:w-[55%]">
                 <h2 className="text-4xl  md:text-5xl font-semibold mb-5 md:mb-7 text-[#414141]">Company Profile</h2>
                 <div className="font-normal text-[16px] text-[#444444] flex flex-col gap-4">
                   <p>
@@ -79,7 +79,7 @@ const AboutUs = () => {
                   </p>
                 </div>
               </div>
-              <div className=" w-[80%] ms-16 md:ms-0 md:w-[40%] mt-5 md:mt-0  relative">
+              <div className=" w-[80%] md:w-[70%] ms-16 lg:ms-0 lg:w-[40%] mt-5  lg:mt-0  relative">
                 <img src="/images/about-us/list-1.png" alt="company profile" className="w-full h-auto" />
                 <button className="absolute top-0 flex font-semibold text-white -left-[4rem]">
                   <i className="px-5 py-3 bg-secondary flex-center">
@@ -89,8 +89,8 @@ const AboutUs = () => {
                 </button>
               </div>
             </div>
-            <div className="w-full mt-10 md:mt-20 ">
-              <ul className="grid items-center justify-center grid-cols-2 gap-5 text-3xl font-bold md:flex md:gap-20 md:justify-center md:text-7xl text-primary">
+            <div className="w-full mt-10 lg:mt-20 ">
+              <ul className="grid items-center justify-center grid-cols-2 gap-5 text-3xl font-bold lg:flex lg:gap-20 md:justify-center lg:text-7xl text-primary">
                 <li className="flex flex-col items-center justify-start gap-3 md:justify-center ">
                   2001
                   <p className="text-sm font-normal text-secondary">Company Founded</p>
@@ -111,40 +111,44 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="h-[80vh] md:h-screen relative bg-[#10121D] flex justify-center items-start md:flex-row flex-col md:px-14 px-5 gap-5 md:gap-20 py-5 md:py-32 w-full">
+          <div className="h-[80vh] lg:h-screen relative bg-[#10121D] flex justify-center items-start lg:flex-row flex-col md:px-14 px-5 gap-5 md:gap-20 py-5 lg:py-32 w-full">
             <img src="/images/about-us/corak.svg" alt="corak" className="absolute top-0 left-0" />
-            <div className="flex flex-col gap-2 w-full md:w-[25%] ">
-              <h3 className="text-5xl md:text-6xl font-semibold text-white leading-[4rem] md:leading-[5rem]">
+            <div className="flex flex-col gap-2 w-full lg:w-[25%] ">
+              <h3 className="text-5xl lg:text-6xl font-semibold text-white leading-[4rem] md:leading-[5rem]">
                 Corporate Culture
               </h3>
               <p className="text-xl leading-6 md:my-0 my-3   text-[#9F9F9F] font-normal">
                 Let's discuss what projects you have in mind
               </p>
             </div>
-            <div className="md:w-[75%] w-full  grid grid-cols-3">
-              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[254px] p-3 md:p-8 bg-gradient-to-br from-[#223DFE] to-[#4ECEDA] ">
-                <p className="text-sm font-bold text-white md:font-semibold md:text-2xl">Enterprise Tenet</p>
+            <div className="lg:w-[75%] w-full  grid grid-cols-3">
+              <div className="w-full flex flex-col gap-1 lg:gap-6 h-[106px] md:h-[206px] lg:h-[254px] p-3 lg:p-8 bg-gradient-to-br from-[#223DFE] to-[#4ECEDA] ">
+                <p className="text-sm font-bold text-white md:font-semibold md:text-xl lg:text-2xl">Enterprise Tenet</p>
                 <p className="text-4xl font-bold text-white opacity-50 md:text-8xl text-end ">01</p>
               </div>
-              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[254px] p-3 md:p-8 bg-gradient-to-br from-[#4ECEDA] to-[#FFFFFF] ">
-                <p className="text-sm md:text-2xl font-bold md:font-semibold text-[#414141]">Enterprise Spirit</p>
+              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[206px] lg:h-[254px] p-3 lg:p-8 bg-gradient-to-br from-[#4ECEDA] to-[#FFFFFF] ">
+                <p className="text-sm md:text-xl lg:text-2xl font-bold md:font-semibold text-[#414141]">
+                  Enterprise Spirit
+                </p>
                 <p className="text-4xl font-bold text-secondary md:text-8xl text-end">02</p>
               </div>
-              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[254px] p-3 md:p-8 bg-[#10121D]"></div>
-              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[254px] p-3 md:p-8 bg-[#10121D]"></div>
-              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[254px] p-3 md:p-8 bg-gradient-to-br from-[#223DFE] to-[#4ECEDA] ">
-                <p className="text-sm font-bold text-white md:font-semibold md:text-2xl">Enterprise Aim</p>
+              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[206px] lg:h-[254px] p-3 lg:p-8 bg-[#10121D]"></div>
+              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[206px] lg:h-[254px] p-3 lg:p-8 bg-[#10121D]"></div>
+              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[206px] lg:h-[254px] p-3 lg:p-8 bg-gradient-to-br from-[#223DFE] to-[#4ECEDA] ">
+                <p className="text-sm font-bold text-white md:font-semibold md:text-xl lg:text-2xl">Enterprise Aim</p>
                 <p className="text-4xl font-bold text-white opacity-50 md:text-8xl text-end">03</p>
               </div>
-              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[254px] p-3 md:p-8 bg-gradient-to-br from-[#4ECEDA] to-[#FFFFFF] ">
-                <p className="text-sm font-bold md:font-semibold md:text-2xl text-secondary">New Journey New Vision</p>
+              <div className="w-full flex flex-col gap-1 md:gap-6 h-[106px] md:h-[206px] lg:h-[254px] p-3 lg:p-8 bg-gradient-to-br from-[#4ECEDA] to-[#FFFFFF] ">
+                <p className="text-sm font-bold md:text-lg md:font-semibold lg:text-2xl text-secondary">
+                  New Journey New Vision
+                </p>
                 <p className="text-4xl font-bold opacity-50 text-secondary md:text-8xl text-end">04</p>
               </div>
             </div>
           </div>
 
-          <div className="w-full h-[80vh] md:h-screen relative bg-[#10121D]">
-            <div className="w-full h-[48px] md:h-[70px]  flex justify-start items-center bg-white">
+          <div className="w-full h-min pb-10 relative bg-[#10121D]">
+            <div className="w-full h-[48px] lg:h-[70px]  flex justify-start items-center bg-white">
               <button className="h-full px-8 text-xl font-bold text-white md:px-16 flex-center bg-primary tect-white">
                 History
               </button>
@@ -183,10 +187,10 @@ const AboutUs = () => {
             </div>
 
             <div className="relative z-10 flex items-center justify-between w-full gap-10 px-5 py-16 md:px-14">
-              <div className="items-center justify-center hidden md:flex">
+              <div className="items-center justify-center hidden lg:flex">
                 <img src="/icons/kerucut-left.svg" alt="icon kerucut left" className="w-full rotate-180" />
               </div>
-              <div className="flex flex-col gap-5 md:gap-8 md:flex-row">
+              <div className="flex flex-col gap-5 md:gap-8 lg:flex-row">
                 <img src="/images/about-us/carousel-list.png" className="w-[560px] h-auto" />
                 <p className="pt-0 text-lg font-normal text-white md:pt-5 line-clamp-4">
                   Changsa Yasheng Technology & Development Co., LTD was Founded in 2001
@@ -206,17 +210,17 @@ const AboutUs = () => {
                 </div>
               </div>
 
-              <div className="items-center justify-center hidden md:flex">
+              <div className="items-center justify-center hidden lg:flex">
                 <img src="/icons/kerucut-left.svg" alt="icon kerucut left" className="w-full" />
               </div>
-              <p className="absolute top-[80%] md:top-[72%] left-[50%] md:left-[63%] z-[-1] -translate-x-[50%] -translate-y-[50%] text-[#20243A] text-[13rem] md:text-[20rem] font-bold">
+              <p className="absolute  top-[80%] md:top-[72%] left-[50%] md:left-[63%] z-[-1] -translate-x-[50%] -translate-y-[50%] text-[#20243A] text-[13rem] md:text-[20rem] font-bold">
                 2001
               </p>
             </div>
           </div>
 
-          <div className="relative flex flex-col items-start justify-center w-full h-[80vh] md:h-screen gap-10 px-5 py-32 bg-white md:flex-row md:px-14">
-            <div className="w-full md:w-[30%] flex flex-col gap-5 md:pt-10">
+          <div className="relative flex flex-col items-start justify-center w-full gap-10 px-5 py-10 bg-white lg:py-32 h-min lg:flex-row lg:px-14">
+            <div className="w-full lg:w-[30%] flex flex-col gap-5 lg:pt-10">
               <h3 className="text-3xl font-bold leading-10 text-secondary">
                 Warehouse <br /> and Services Center
               </h3>
@@ -231,7 +235,7 @@ const AboutUs = () => {
               </Link>
             </div>
 
-            <div className="w-full md:w-[70%] flex items-center justify-between px-0 md:px-5 gap-5">
+            <div className="w-full lg:w-[70%] flex items-center justify-between px-0 md:px-5 gap-5">
               <div className="items-center justify-center hidden mb-24 md:flex">
                 <img src="/icons/arrow-right-grey.svg" alt="icon right right grey" className="w-full " />
               </div>

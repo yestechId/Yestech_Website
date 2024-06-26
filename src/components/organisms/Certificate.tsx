@@ -10,11 +10,11 @@ const Certificate: React.FC = () => {
   const [tempUrl, setTempUrl] = useState('')
 
   return (
-    <div className="relative items-center justify-start w-full h-[80vh] md:h-screen px-5 md:px-14">
+    <div className="relative items-center justify-start w-full h-[80vh] md:h-[70vh]  lg:h-screen px-5 lg:px-14">
       <div className="w-full ">
         <h3 className="text-3xl font-bold leading-10 text-secondary">CERTIFICATES</h3>
         {/* tampilan di dekstop */}
-        <ul className="relative hidden w-full h-full md:block">
+        <ul className="relative hidden w-full h-full lg:block">
           {certificates.map((src, index) => (
             <li
               key={index}
@@ -66,8 +66,8 @@ const Certificate: React.FC = () => {
           ))}
         </ul>
 
-        {/* tampilan di mobile */}
-        <ul className="relative w-full h-full md:hidden">
+        {/* tampilan di mobile dan tab */}
+        <ul className="relative w-full h-full lg:hidden">
           {certificates.map((src, index) => (
             <li
               key={index}
@@ -83,7 +83,7 @@ const Certificate: React.FC = () => {
                 <img
                   src={src}
                   alt={`Certificate ${index + 1}`}
-                  className={` w-[208px] h-auto duration-300 transition-transform`}
+                  className={` w-[208px] md:w-[308px] h-auto duration-300 transition-transform`}
                 />
               </div>
             </li>

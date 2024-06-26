@@ -312,7 +312,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              <div className="w-full md:w-[30%] flex flex-col items-start justify-center gap-2 md:gap-5 px-0 md:px-5 overflow-y-auto">
+              <div className="w-full md:w-[30%] xs:h-min md:h-[300px] xs:pt-5 md:pt-28 lg:pt-5 lg:h-min flex flex-col items-start justify-center gap-2 md:gap-5 px-0 md:px-5 overflow-y-auto">
                 <h3 className="text-2xl md:text-[2.5rem] font-bold leading-8 md:leading-[3rem] mt-5 md:mt-0">
                   The Inchoen Asian Games
                 </h3>
@@ -333,11 +333,11 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 hidden md:block">
+        <div className="absolute bottom-0 right-0 hidden lg:block">
           <img src="/images/corak-case-list.svg" alt="corak square case list bottom" />
         </div>
         {/* mobile */}
-        <div className="absolute bottom-0 right-0 md:hidden">
+        <div className="absolute bottom-0 right-0 lg:hidden">
           <img src="/icons/mobile/corak-square-case-list.svg" alt="corak square case list bottom" />
         </div>
       </section>
