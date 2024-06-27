@@ -30,15 +30,15 @@ const Navbar: React.FC = () => {
   const classTextScrolled = isScrolled ? 'text-secondary' : 'text-white'
   const ImageScrolled = () => {
     if (isScrolled) {
-      return <img src="/images/logo-bg-white.png" className="md:w-56 xs:w-48" alt="Logo" />
+      return <img src="/images/logo-bg-white.png" className="md:w-56 xs:w-40 -ms-4 md:-ms-0" alt="Logo" />
     } else {
-      return <img src="/images/logo.svg" className="md:w-56 xs:w-48" alt="Logo" />
+      return <img src="/images/logo.svg" className="md:w-56 xs:w-40 -ms-4 md:-ms-0" alt="Logo" />
     }
   }
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${classBgScrolled}`}>
-      <div className="container flex items-center justify-between py-5">
+      <div className="container flex items-center justify-between py-5 ">
         <ImageScrolled />
 
         {/* Menu untuk desktop */}
