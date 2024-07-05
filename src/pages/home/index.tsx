@@ -1,69 +1,15 @@
 import React, { useState } from 'react'
 import MapView from '../../components/organisms/MapView'
 import { Link } from 'react-router-dom'
+import Banner from './Banner'
+import CaseList from './CaseList'
 const Home: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   return (
     <>
-      <section
-        id="home"
-        className="relative w-full h-screen xs:bg-[url('/images/home/bg-banner-mobile.svg')]   md:bg-[url('/images/banner-home.svg')] bg-cover rounded-br-[50px] md:mb-0 mb-5"
-      >
-        <div className="container flex flex-col items-center justify-start w-full h-full gap-14 md:gap-0 md:justify-between md:flex-row">
-          <div className="flex md:w-[60%] w-full  items-center justify-center md:justify-start">
-            <div className="flex flex-col gap-0 pt-20 md:gap-2 xs:items-center md:items-start md:pt-0">
-              <h1 className="text-[#FF3237] md:text-6xl xs:text-4xl font-bold">New !</h1>
-              <h2 className="font-bold text-white xs:text-[2rem] md:text-[5rem]">MG6S Plus Series</h2>
-              <p className="font-normal text-white xs:text-xs md:text-2xl">Fast Installation, Intelligent Selection</p>
-              <button className="py-2 mt-5 font-semibold border-2 border-white rounded-full button-secondary px-9">
-                Learn More
-              </button>
-            </div>
-          </div>
-          <div className="md:w-[40%] w-full md:pt-14  pt-0">
-            <img src="/images/product-home.png" alt="product home" className="md:w-full w-[300px] h-full" />
-          </div>
+      <Banner />
 
-          <div className="absolute left-0 gap-8 md:left-20 bottom-14 flex-center">
-            <div className="text-3xl flex-center">
-              <img src="/icons/arrow-left.svg" alt="icon left" className="hidden w-full text-white md:block" />
-            </div>
-            <div className="flex gap-3 text-white">
-              <span className="flex items-center justify-center w-6 h-6 text-xs font-bold border-2 rounded-full">
-                1
-              </span>
-              <div className="flex flex-col gap-0 font-bold">
-                <h3 className="text-sm ">MG6s Plus Series</h3>
-                <p className="text-xs">Fast Installation, Intelligent Selection</p>
-              </div>
-            </div>
-            <div className="text-3xl flex-center ">
-              <img src="/icons/arrow-right.svg" alt="icon-right" className="hidden w-full text-white md:block" />
-            </div>
-            <div className="hidden gap-3 text-white md:flex">
-              <span className="w-6 h-6 text-xs font-bold border-2 rounded-full flex-center">2</span>
-              <div className="flex flex-col gap-0 font-bold">
-                <h3 className="text-sm ">MG6s Plus Series</h3>
-                <p className="text-xs">Fast Installation, Intelligent Selection</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute gap-2 left-10 md:gap-2 md:left-52 bottom-8 flex-center">
-            <div className="text-3xl flex-center md:hidden">
-              <img src="/icons/arrow-left.svg" alt="icon left" className="hidden w-full text-white md:block" />
-            </div>
-            <span className="block w-20 md:w-10 h-[6px] rounded-full bg-primary"></span>
-            <span className="block w-5 h-2 bg-white rounded-full md:w-2"></span>
-            <span className="block w-5 h-2 bg-white rounded-full md:w-2"></span>
-            <div className="text-3xl flex-center md:hidden">
-              <img src="/icons/arrow-right.svg" alt="icon-right" className="hidden w-full text-white md:block" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="container relative w-full h-min  overflow-hidden border md:border-0 md:rounded-[0px] rounded-[20px]">
+      <section className="container  top-10 relative w-full  h-min  overflow-hidden border md:border-0 md:rounded-[0px] rounded-[20px]">
         <h2 className="my-5 md:my-8 text-lg md:text-3xl font-bold md:text-center text-[#CCCCCC] text-left px-5 md:px-0">
           Products
         </h2>
@@ -199,7 +145,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className=" w-full h-min bg-[#F9F9FB] relative overflow-hidden">
+      <section className=" w-full h-min bg-[#F9F9FB] relative top-10 overflow-hidden md:my-5 md:pb-5">
         <button className="font-bold bg-[#F4F4F4] rounded-md p-2 mt-8 md:ml-10 ml-[6.5rem] mb-3 md:mb-0">
           Welcome to YesTech
         </button>
@@ -266,81 +212,8 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+      <CaseList />
 
-      <section className="relative">
-        <div className="container pb-20">
-          <h2 className="mb-8 mt-10 text-2xl font-bold text-center text-[#CCCCCC]">Case List</h2>
-          <div className="w-full overflow-hidden h-min">
-            <div className="flex justify-between w-full">
-              <div className="items-center justify-center hidden md:flex">
-                <img src="/icons/arrow-left-long.svg" alt="icon left long" className="w-full" />
-              </div>
-              {/* versi mobile */}
-              <div className="flex-center md:hidden">
-                <img src="/icons/mobile/arrow-left-long.svg" alt="icon-left long" className="w-full rotate-180" />
-              </div>
-              <h3 className="text-sm font-bold text-center md:text-4xl line-clamp-2">The Inchoen Asian Games</h3>
-              <div className="items-center justify-center hidden md:flex">
-                <img src="/icons/arrow-right-long.svg" alt="icon- ight long" className="w-full" />
-              </div>
-              {/* versi mobile */}
-              <div className="flex-center md:hidden">
-                <img src="/icons/mobile/arrow-left-long.svg" alt="icon-left long" className="w-full" />
-              </div>
-            </div>
-            <div className="gap-2 mt-3 mb-5 md:mt-5 md:mb-10 left-32 bottom-8 flex-center">
-              <span className="block w-2 h-2 rounded-full bg-primary"></span>
-              <span className="block w-2 h-2 rounded-full bg-slate-300"></span>
-              <span className="block w-2 h-2 rounded-full bg-slate-300"></span>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-full md:flex-row ">
-              <div className="w-full md:w-[70%] md:flex-row flex-col-reverse  bg-[#F9F9FB] flex justify-between">
-                <ul className=" w-full md:w-[8%] flex flex-row justify-center items-center md:justify-start   mt-5 md:mt-0 md:flex-col gap-2 me-3">
-                  <li>
-                    <img src="/images/small-case-list.png" alt="thumbnui case list" className=" w-[36px] md:w-full" />
-                  </li>
-                  <li>
-                    <img src="/images/small-case-list.png" alt="thumbnui case list" className=" w-[36px] md:w-full" />
-                  </li>
-                  <li>
-                    <img src="/images/small-case-list.png" alt="thumbnui case list" className=" w-[36px] md:w-full" />
-                  </li>
-                </ul>
-                <div className="w-full h-auto">
-                  <img src="/images/case-list.png" alt="image banner case list" className="w-full h-auto" />
-                </div>
-              </div>
-
-              <div className="w-full md:w-[30%] xs:h-min md:h-[300px] xs:pt-5 md:pt-28 lg:pt-5 lg:h-min flex flex-col items-start justify-center gap-2 md:gap-5 px-0 md:px-5 overflow-y-auto">
-                <h3 className="text-2xl md:text-[2.5rem] font-bold leading-8 md:leading-[3rem] mt-5 md:mt-0">
-                  The Inchoen Asian Games
-                </h3>
-                <ul className=" text-[#8B8B8B] text-sm font-normal">
-                  <li>Location: Korea, Incheon</li>
-                  <li>Product: MG7S Series</li>
-                </ul>
-                <p className="text-sm font-normal">
-                  Lorem ipsum dolor sit amet consectetur. Molestie risus aenean lorem nullam lacinia sagittis arcu. Amet
-                  dis egestas faucibus netus ultricies pulvinar tempor luctus consectetur. Id eget bibendum commodo vel.
-                  Sit velit habitant consectetur pellentesque. Lorem ipsum dolor sit amet consectetur. Molestie risus
-                  aenean lorem nullam lacinia sagittis arcu. Amet dis egestas faucibus netus ultricies pulvinar tempor
-                  luctus consectetur. Id eget bibendum commodo vel. Sit velit habitant consectetur pellentesque egestas
-                  faucibus netus ultricies pulvinar tempor luctus consectetur. Id eget bibendum commodo vel. Sit velit
-                  habitant consectetur pellentesque.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="absolute bottom-0 right-0 hidden lg:block">
-          <img src="/images/corak-case-list.svg" alt="corak square case list bottom" />
-        </div>
-        {/* mobile */}
-        <div className="absolute bottom-0 right-0 lg:hidden">
-          <img src="/icons/mobile/corak-square-case-list.svg" alt="corak square case list bottom" />
-        </div>
-      </section>
       <MapView />
     </>
   )

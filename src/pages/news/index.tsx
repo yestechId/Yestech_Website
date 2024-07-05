@@ -1,6 +1,60 @@
 import { Link } from 'react-router-dom'
+import NEWS from '../../services/news'
+import { useEffect, useState } from 'react'
+import { Carousel } from 'react-responsive-carousel'
+import { BASE_API } from '../../config/env'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import Skeleton from '../../components/atoms/Skeleton'
+
+interface IImage {
+  link: string
+}
+interface INews {
+  id: number
+  name: string
+  details: string
+  imageNews: IImage[]
+  createdAt?: string
+  updatedAt?: string
+}
 
 const News = () => {
+  const [data, setdata] = useState<INews[]>([])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [dataBanner, setDataBanner] = useState<INews | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const fetchData = async () => {
+    setIsLoading(true)
+    try {
+      const response = await NEWS.getAllNews()
+      const data = await response
+      setDataBanner(data[0])
+      setdata(data)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log('🚀 ~ error:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+  const handleThumbnailClick = (index: number) => {
+    setCurrentImageIndex(index)
+  }
+  const handlePrevClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : (dataBanner?.imageNews.length || 1) - 1))
+  }
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex < (dataBanner?.imageNews.length || 1) - 1 ? prevIndex + 1 : 0))
+  }
+
+  if (isLoading) {
+    return <Skeleton />
+  }
+
   return (
     <>
       <header className="w-full h-[351px] md:h-[391px]   md:bg-[url('/images/news/hero.png')] xs:bg-[url('/images/news/banner-mobile.svg')] bg-cover rounded-br-[50px] bg-no-repeat bg-center">
@@ -22,35 +76,42 @@ const News = () => {
             Updated News
           </h3>
 
-          <h2 className="text-xl font-bold text-secondary md:hidden">
-            Explore Wonderful Visuals of YES TECH at Infocomm 2024
-          </h2>
+          <h2 className="text-xl font-bold text-secondary md:hidden">{dataBanner?.name}</h2>
           <ul className="flex items-center justify-start gap-2 mt-2 mb-4 text-xs font-normal text-secondary md:hidden">
             <li>2024.06.05</li>
             <li>CNN Indonesia</li>
           </ul>
 
+          {/* versi dekstop */}
           <div className="flex-center ">
-            <div className="items-center justify-center hidden md:flex">
+            <div className="items-center justify-center hidden cursor-pointer md:flex" onClick={handlePrevClick}>
               <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full" />
             </div>
 
             <div className="gap-5 w-full md:w-[90%]  mx-auto flex md:flex-row flex-col">
-              <div className="w-full h-auto">
-                <img src="/images/news/banner.png" className="w-full h-auto" />
-              </div>
-              <div className="flex overflow-y-auto  flex-col items-start justify-start text-sm lg:text-[16px]  h-min gap-5 md:gap-0 lg:gap-10 w-full md:w-[35%] text-[#444444]">
-                <p className="xs:h-min md:h-[190px] lg:h-min xs:overflow-visible md:overflow-y-auto lg:overflow-visible">
-                  InfoComm, the largest pro-AV event in the US, is happening from June 12 to 14. It is a great
-                  opportunity for you and YES TECH to meet face-to-face and discuss the latest products and cutting-edge
-                  solutions together. YES TECH is always dedicated to bringing you a wonderful visual experience:
-                  <span className="block my-2 md:my-5"></span>
-                  Outdoor Rental Products premier at the show! The MT transparent screen & MU Series, designed for
-                  outdoor applications with quick installation, are about to
-                </p>
+              <Carousel
+                selectedItem={currentImageIndex}
+                showThumbs={false}
+                showStatus={false}
+                renderArrowPrev={() => null}
+                renderArrowNext={() => null}
+                className="w-full h-full mx-auto overflow-hidden "
+              >
+                {dataBanner?.imageNews.map((image, index) => (
+                  <div
+                    key={index}
+                    className="w-full h-auto bg-slate-900 rounded-[10px] md:rounded-[20px] overflow-hidden"
+                  >
+                    <img src={`${BASE_API}/${image.link}`} alt={dataBanner?.name} className="w-full h-auto" />
+                  </div>
+                ))}
+              </Carousel>
+
+              <div className="flex overflow-y-auto  flex-col items-start justify-start text-sm lg:text-[16px]  gap-5 md:gap-0 lg:gap-10 w-full md:w-[35%] text-[#444444]">
+                <p className="xs:h-min lg:h-min line-clamp-[15]">{dataBanner?.details}</p>
                 <div className="flex items-center justify-center w-full pb-5 md:pb-0 md:justify-start ">
                   <Link
-                    to="/read-news"
+                    to={`/read-news/${dataBanner?.id}`}
                     className="w-full py-2 mx-auto mt-0 font-semibold text-center border-2 rounded-full md:mt-5 lg:w-60 lg:px-12 button-primary border-primary"
                   >
                     Read More
@@ -58,20 +119,28 @@ const News = () => {
                 </div>
               </div>
             </div>
-            <div className="items-center justify-center hidden md:flex">
+
+            <div className="items-center justify-center hidden cursor-pointer md:flex" onClick={handleNextClick}>
               <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full rotate-180" />
             </div>
           </div>
+
           <div className="w-[90%] mx-auto bottom-8 flex md:justify-center items-center justify-between gap-2 mt-0 md:mt-5 mb-10">
-            <div className="flex items-center justify-center md:hidden">
+            {/* versi mobile */}
+            <div className="flex items-center justify-center cursor-pointer md:hidden" onClick={handlePrevClick}>
               <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full" />
             </div>
-            <div className="gap-2 flex-center">
-              <span className="block w-10 h-[6px] rounded-full bg-primary"></span>
-              <span className="block w-2 h-2 rounded-full bg-secondary md:bg-slate-200"></span>
-              <span className="block w-2 h-2 rounded-full bg-secondary md:bg-slate-200"></span>
+            <div className="gap-2 mt-3 mb-5 md:mt-5 md:mb-10 left-32 bottom-8 flex-center">
+              {dataBanner?.imageNews.map((_, index) => (
+                <span
+                  key={index}
+                  className={`cursor-pointer block w-2 h-2 rounded-full ${currentImageIndex === index ? 'bg-primary' : 'bg-slate-300'}`}
+                  onClick={() => handleThumbnailClick(index)}
+                ></span>
+              ))}
             </div>
-            <div className="flex items-center justify-center md:hidden">
+            {/* versi mobile */}
+            <div className="flex items-center justify-center cursor-pointer md:hidden" onClick={handleNextClick}>
               <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full rotate-180" />
             </div>
           </div>
@@ -80,127 +149,28 @@ const News = () => {
         <section className="w-full md:w-[90%] mx-auto mb-10 md:mb-24">
           <h3 className="  font-bold text-[#121221] text-2xl md:text-3xl mb-5">Latest News</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-5 md:gap-y-12">
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
-            <Link to="/read-news" className="flex flex-row gap-3 card md:flex-col md:gap-0">
-              <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] h-auto" />
-              <div className="flex flex-col gap-3 mt-0 md:gap-5 md:mt-3">
-                <h4 className="text-lg font-bold leading-5 md:text-xl md:leading-6 line-clamp-3 md:line-clamp-2">
-                  News Title Lorem Ipsum Dolor Sit Amet
-                </h4>
-                <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                  <li>1 Hour Ago</li>
-                  <li>1 Hour Ago</li>
-                </ul>
-              </div>
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-x-10 md:gap-10 gap-y-5 md:gap-y-10">
+            {data?.map((item) => {
+              return (
+                <Link
+                  key={item.id}
+                  to="/read-news"
+                  className="flex flex-row w-full h-auto gap-3  card md:w-[280px] md:flex-col md:gap-0"
+                >
+                  <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] " />
+                  <div className="flex flex-col w-full gap-3 mt-0 md:gap-5 md:mt-3">
+                    <h4 className="text-sm font-bold leading-5 line-clamp-2 md:text-xl md:leading-6 md:line-clamp-2">
+                      {item.name}
+                    </h4>
+                    <ul className="text-xs flex gap-3 font-normal text-[#949494]">
+                      {/* <li>1 Hour Ago</li>
+                      <li>1 Hour Ago</li> */}
+                      <li className="line-clamp-3">{item.details}</li>
+                    </ul>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </section>
       </div>

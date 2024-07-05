@@ -1,19 +1,116 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LocationInfo from '../molecules/LocationInfo'
 import { FaEnvelope, FaFacebook, FaInstagram, FaPhoneVolume, FaTiktok, FaTwitter } from 'react-icons/fa'
 import { FaLocationDot } from 'react-icons/fa6'
+import Home from '../../services/home'
+import { Carousel } from 'react-responsive-carousel'
+import { BASE_API } from '../../config/env'
+import { Link } from 'react-router-dom'
+
+interface ICategoryOwner {
+  id: number
+  name: string
+  createdAt?: string
+  updatedAt?: string
+  top: {
+    md: number
+    xs: number
+  }
+  left: {
+    md: number
+    xs: number
+  }
+}
+
+interface IOwner {
+  id: number
+  name: string
+  details: string
+  noHp: string
+  image: string
+  email: string
+  alamat: string
+  linkWeb: string
+  instagram: string
+  facebook: string
+  tiktok: string
+  youtube: string
+  categoryYestechOwnerId: number
+  createdAt?: string
+  updatedAt?: string
+  categoryYestechOwner: {
+    id: number
+    name: string
+    createdAt?: string
+    updatedAt?: string
+  }
+}
 
 const MapView: React.FC = () => {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null)
   const [city, setCity] = useState<string | null>(null)
   const [isModalOpenVersiWeb, setIsModalOpenVersiWeb] = useState<boolean>(false)
   const [isModalOpenVersiMobile, setIsModalOpenVersiMobile] = useState<boolean>(false)
+  const [dataCategoryOwner, setDataCategoryOwner] = useState<ICategoryOwner[]>([])
+  const [dataOwner, setDataOwner] = useState<IOwner[]>([])
+  const [currentData, setCurrentData] = useState<IOwner[]>([])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const handlePrevClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : (currentData.length || 1) - 1))
+  }
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex < (currentData.length || 1) - 1 ? prevIndex + 1 : 0))
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [mapBackgroundStyle, setMapBackgroundStyle] = useState<any>({
     transform: 'translate(0%, 0%) scale(1)',
     transition: 'transform 0.5s ease-in-out'
   })
+  // base location owner
+  const locations = [
+    { name: 'Jabodetabek', top: { md: 63, xs: 61.5 }, left: { md: 27.5, xs: 31 } },
+    { name: 'Jogjakarta', top: { md: 71, xs: 71.5 }, left: { md: 33, xs: 41 } },
+    { name: 'Surabaya', top: { md: 67.5, xs: 66 }, left: { md: 38.5, xs: 56 } },
+    { name: 'Bali', top: { md: 72, xs: 70 }, left: { md: 44.5, xs: 69 } }
+  ]
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Home.getCategoryOwner()
+        const categoryOwners = await response
+        const updatedCategoryOwners = categoryOwners.map((owner: ICategoryOwner) => {
+          const location = locations.find((loc) => loc.name === owner.name)
+          return {
+            ...owner,
+            top: location ? location.top : { md: 0, xs: 0 },
+            left: location ? location.left : { md: 0, xs: 0 }
+          }
+        })
+        setDataCategoryOwner(updatedCategoryOwners)
+      } catch (error) {
+        console.log('🚀 ~ error:', error)
+      }
+    }
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    const getDataOwner = async () => {
+      try {
+        const response = await Home.getOwner()
+        const data = await response
+        setDataOwner(data)
+      } catch (error) {
+        console.log('🚀 ~ error:', error)
+      }
+    }
+    getDataOwner()
+  }, [])
+
   const onClose = () => {
     setIsModalOpenVersiWeb(false)
     setMapBackgroundStyle({
@@ -23,8 +120,11 @@ const MapView: React.FC = () => {
   }
 
   const handleMouseEnter = (location: string) => {
+    const filterData = dataOwner.filter((data) => data.categoryYestechOwner.name === location)
+    setCurrentData(filterData)
     setHoveredLocation(location)
   }
+
   const setModal = (name: string) => {
     setCity(name)
     setIsModalOpenVersiWeb(true)
@@ -34,25 +134,22 @@ const MapView: React.FC = () => {
     })
   }
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (location: string) => {
+    const filterData = dataOwner.filter((data) => data.categoryYestechOwner.name === location)
+    setCurrentData(filterData)
     setHoveredLocation(null)
   }
 
   const selectPartner = (name: string) => {
     setCity(name)
+    const filterData = dataOwner.filter((data) => data.categoryYestechOwner.name === name)
+    setCurrentData(filterData)
     setIsModalOpenVersiMobile(true)
   }
 
-  const locations = [
-    { name: 'Jabodetabek', top: { md: 63, xs: 61.5 }, left: { md: 27.5, xs: 31 } },
-    { name: 'Jogjakarta', top: { md: 71, xs: 71.5 }, left: { md: 33, xs: 41 } },
-    { name: 'Surabaya', top: { md: 67.5, xs: 66 }, left: { md: 38.5, xs: 56 } },
-    { name: 'Bali', top: { md: 72, xs: 70 }, left: { md: 44.5, xs: 69 } }
-  ]
-
   return (
-    <section className="h-min pb-20 bg-[#10121D] overflow-hidden">
-      <div className="relative md:w-[90%] mx-auto xs:w-full">
+    <section className="h-min mt-10 pb-20 bg-[#10121D] overflow-hidden">
+      <div className="relative   md:w-[90%] mx-auto xs:w-full">
         <h2 className="relative z-20 pt-20 xs:text-xl md:text-2xl font-bold text-center xs:text-white md:text-[#CCCCCC] flex flex-col md:mb-0 xs:mb-5">
           Yes Tech Strategic Partners
         </h2>
@@ -78,7 +175,7 @@ const MapView: React.FC = () => {
           />
 
           {/* tampilan web */}
-          {locations.map((location) => (
+          {dataCategoryOwner.map((location) => (
             <div
               key={location.name}
               className={`absolute xs:hidden md:flex flex-col items-center justify-center transform -translate-x-[50%] -translate-y-[50%] cursor-pointer
@@ -88,7 +185,7 @@ const MapView: React.FC = () => {
                 left: `${location.left.md}%`
               }}
               onMouseEnter={() => handleMouseEnter(location.name)}
-              onMouseLeave={handleMouseLeave}
+              onMouseLeave={() => handleMouseLeave(location.name)}
               onClick={() => setModal(location.name)}
             >
               <h3 className="font-semibold text-white xs:text-xs md:text-sm">{location.name}</h3>
@@ -96,6 +193,7 @@ const MapView: React.FC = () => {
               <img src="/images/home/location.svg" className="h-auto xs:w-10 md:w-14" alt="Icon Location" />
 
               <LocationInfo
+                currentData={currentData}
                 name={location.name}
                 isHovered={hoveredLocation === location.name}
                 handleMouseEnter={handleMouseEnter}
@@ -104,7 +202,7 @@ const MapView: React.FC = () => {
           ))}
 
           {/* Tampilan Mobil */}
-          {locations.map((location) => (
+          {dataCategoryOwner.map((location) => (
             <div
               key={location.name}
               className={`absolute z-50 md:hidden flex flex-col items-center justify-center transform -translate-x-[50%] -translate-y-[50%] cursor-pointer
@@ -134,6 +232,7 @@ const MapView: React.FC = () => {
               ) : null}
 
               <LocationInfo
+                currentData={currentData}
                 name={location.name}
                 isHovered={hoveredLocation === location.name}
                 handleMouseEnter={handleMouseEnter}
@@ -159,64 +258,73 @@ const MapView: React.FC = () => {
               </svg>
             </button>
 
-            <div className="w-[456px] h-[90vh] overflow-auto bg-white rounded-lg p-5 flex flex-col ">
-              <h2 className="text-lg text-[#9F9F9F]">{city}</h2>
-              <div className="flex items-center justify-between">
-                <div className="flex-center">
-                  <img src="/icons/polygon-right.svg" alt="icon polygon right" className="w-full" />
-                </div>
-                <div className="w-[87px] h-auto overflow-hidden">
-                  <img src="/images/home/partner/jabodetabek/infinite-live.png" />
-                </div>
-                <div className="flex-center">
-                  <img src="/icons/polygon-left.svg" alt="icon polygon left" className="w-full" />
-                </div>
-              </div>
-              <div className="border-t border-[#EAEAEA] px-5 pt-5 flex flex-col gap-3 ">
-                <h3 className="text-xl font-bold">PT. INFINITE LIVE PRODUCTION</h3>
-                <p className="text-sm font-normal">
-                  Lorem ipsum dolor sit amet consectetur. Hendrerit elementum maecenas sollicitudin sem ultrices. Non
-                  cras ornare amet erat sit. Id morbi massa euismod semper dignissim consequat eu. Cras quis magna
-                  rutrum aenean gravida vitae varius.
-                </p>
-              </div>
-              <div className="flex flex-col gap-0 pt-5 pr-10 ps-5">
-                <h3 className="mb-2 text-xl font-bold">Contact Information</h3>
-                <ul className="flex flex-col gap-5">
-                  <li className="flex items-center justify-start gap-8">
-                    <FaPhoneVolume className="w-5 h-5 -rotate-45" />
-                    <p className="w-full text-sm font-medium">+62-812-8816-2075</p>
-                  </li>
-                  <li className="flex items-center justify-start gap-8">
-                    <FaEnvelope className="w-5 h-5 font-bold" />
-                    <p className="w-full text-sm font-medium">ngi-infinite@gmail.com</p>
-                  </li>
-                  <li className="flex items-start justify-start gap-8">
-                    <FaLocationDot className="w-5 h-5" />
-                    <p className="w-full text-sm font-medium">
-                      Jl. Palem VII No.78, RT.2/RW.8, Petukangan Utara, Kec. Pesanggrahan, Kota Jakarta Selatan, Daerah
-                      Khusus Ibukota Jakarta 12260
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-3 mt-3 flex-center">
-                <p className="text-sm text-primary">ngi-infinite.com</p>
-                <ul className="w-full gap-8 flex-center ">
-                  <li>
-                    <FaInstagram className="w-7 h-7" />
-                  </li>
-                  <li>
-                    <FaTwitter className="w-7 h-7" />
-                  </li>
-                  <li>
-                    <FaFacebook className="w-7 h-7" />
-                  </li>
-                  <li>
-                    <FaTiktok className="w-7 h-7" />
-                  </li>
-                </ul>
-              </div>
+            <div className="w-[456px] h-[90vh] overflow-y-auto bg-white rounded-lg flex flex-col ">
+              <Carousel
+                selectedItem={currentImageIndex}
+                showThumbs={false}
+                showStatus={false}
+                renderArrowPrev={() => null}
+                renderArrowNext={() => null}
+                className="w-full h-full mx-auto "
+              >
+                {currentData?.map((item, index) => (
+                  <div key={index} className="w-full h-auto p-5 text-left">
+                    <h2 className="text-lg  text-[#9F9F9F]">{item.categoryYestechOwner.name}</h2>
+                    <div className="flex items-center justify-between">
+                      <div className="cursor-pointer flex-center" onClick={handlePrevClick}>
+                        <img src="/icons/polygon-right.svg" alt="icon polygon right" className="w-full" />
+                      </div>
+                      <div className="w-[87px] h-[84px] flex-center overflow-hidden">
+                        <img src={`${BASE_API}/${item.image}`} alt={item.name} className="object-cover" />
+                      </div>
+                      <div className="cursor-pointer flex-center " onClick={handleNextClick}>
+                        <img src="/icons/polygon-left.svg" alt="icon polygon left" className="w-full" />
+                      </div>
+                    </div>
+                    <div className="border-t border-[#EAEAEA] px-5 mt-3 pt-3 flex flex-col gap-3 ">
+                      <h3 className="text-xl font-bold">{item.name}</h3>
+                      <p className="text-sm font-normal">{item.details}</p>
+                    </div>
+                    <div className="flex flex-col gap-0 pt-5 pr-10 ps-5">
+                      <h3 className="mb-2 text-xl font-bold">Contact Information</h3>
+                      <ul className="flex flex-col gap-5">
+                        <li className="flex items-center justify-start gap-8">
+                          <FaPhoneVolume className="w-5 h-5 -rotate-45" />
+                          <p className="w-full text-sm font-medium">{item.noHp}</p>
+                        </li>
+                        <li className="flex items-center justify-start gap-8">
+                          <FaEnvelope className="w-5 h-5 font-bold" />
+                          <p className="w-full text-sm font-medium">{item.email}</p>
+                        </li>
+                        <li className="flex items-start justify-start gap-8">
+                          <FaLocationDot className="w-5 h-5" />
+                          <p className="w-full text-sm font-medium ">{item.alamat}</p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="flex flex-col gap-3 mt-3 flex-center">
+                      <Link target="_blank" to={item.linkWeb} className="text-sm text-primary">
+                        {item.linkWeb}
+                      </Link>
+                      <ul className="w-full gap-8 flex-center ">
+                        <Link target="_blank" to={item.instagram}>
+                          <FaInstagram className="w-7 h-7" />
+                        </Link>
+                        <Link target="_blank" to={item.tiktok}>
+                          <FaTwitter className="w-7 h-7" />
+                        </Link>
+                        <Link target="_blank" to={item.facebook}>
+                          <FaFacebook className="w-7 h-7" />
+                        </Link>
+                        <Link target="_blank" to={item.tiktok}>
+                          <FaTiktok className="w-7 h-7" />
+                        </Link>
+                      </ul>
+                    </div>
+                    {/* <img src={`${BASE_API}/${image.link}`} alt={data?.name} className="w-full h-auto" /> */}
+                  </div>
+                ))}
+              </Carousel>
             </div>
           </div>
         </div>
@@ -225,70 +333,81 @@ const MapView: React.FC = () => {
       {/* Modal Versi Mobile */}
       {isModalOpenVersiMobile ? (
         <div className="w-[92%] mx-auto flex items-center justify-end  md:hidden ">
-          <div className="flex flex-col items-start gap-5">
-            <div className="w-full flex-between">
-              <h2 className="text-2xl font-bold text-white line-clamp-1">{city}</h2>
-              <p className="text-xs font-normal text-[#565E93]">*tap the logo for information</p>
-            </div>
-            <div className="flex flex-col w-full p-5 overflow-auto bg-white rounded-lg h-min ">
-              <div className="flex items-center justify-between">
-                <div className="flex-center">
-                  <img src="/icons/polygon-right.svg" alt="icon polygon right" className="w-full" />
+          <Carousel
+            selectedItem={currentImageIndex}
+            showThumbs={false}
+            showStatus={false}
+            renderArrowPrev={() => null}
+            renderArrowNext={() => null}
+            className="w-full h-full "
+          >
+            {currentData?.map((item) => {
+              return (
+                <div key={item.id} className="flex flex-col items-start w-full gap-5">
+                  <div className="w-full flex-between">
+                    <h2 className="text-2xl font-bold text-white line-clamp-1">{item.categoryYestechOwner.name}</h2>
+                    <p className="text-xs font-normal text-[#565E93]">*tap the logo for information</p>
+                  </div>
+                  <div className="flex flex-col w-full p-5 overflow-auto bg-white rounded-lg h-min ">
+                    <div className="flex items-center justify-between">
+                      <div className="cursor-pointer flex-center" onClick={handlePrevClick}>
+                        <img src="/icons/polygon-right.svg" alt="icon polygon right" className="w-full" />
+                      </div>
+                      <div className="w-[87px] h-[87px] overflow-hidden">
+                        <img src={`${BASE_API}/${item.image}`} alt={item.name} className="object-cover" />
+                      </div>
+                      <div className="cursor-pointer flex-center" onClick={handleNextClick}>
+                        <img src="/icons/polygon-left.svg" alt="icon polygon left" className="w-full" />
+                      </div>
+                    </div>
+
+                    <div className="border-t border-[#EAEAEA] text-left px-3 md:px-5 mt-5 pt-5 flex flex-col gap-1 md:gap-3 ">
+                      <h3 className="text-lg font-bold md:text-xl">{item.name}</h3>
+                      <p className="text-xs font-normal leading-4 md:text-sm md:leading-5">{item.details}</p>
+                    </div>
+                    <div className="flex flex-col gap-0 pt-3 pr-5 text-left md:pr-10 md:pt-5 md:ps-5 ps-3">
+                      <h3 className="mb-2 text-lg font-bold md:text-xl">Contact Information</h3>
+                      <ul className="flex flex-col gap-3 md:gap-5">
+                        <li className="flex items-center justify-start gap-5 md:gap-8">
+                          <FaPhoneVolume className="w-5 h-5 -rotate-45" />
+                          <p className="w-full text-xs font-medium md:text-sm">{item.noHp}</p>
+                        </li>
+                        <li className="flex items-center justify-start gap-5">
+                          <FaEnvelope className="w-5 h-5 font-bold" />
+                          <p className="w-full text-xs font-medium md:text-sm">{item.email}</p>
+                        </li>
+                        <li className="flex items-start justify-start gap-5">
+                          <FaLocationDot className="w-5 h-5" />
+                          <p className="w-full text-xs font-medium leading-4 line-clamp-2 md:leading-5 md:text-sm">
+                            {item.alamat}
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="flex flex-col gap-3 mt-5 flex-center md:mt-3">
+                      <Link target="_blank" to={item.linkWeb} className="text-xs md:text-sm text-primary">
+                        {item.linkWeb}
+                      </Link>
+                      <ul className="w-full gap-3 md:gap-8 flex-center ">
+                        <Link target="_blank" to={item.instagram}>
+                          <FaInstagram className="w-4 h-4 md:w-7 md:h-7" />
+                        </Link>
+                        <Link target="_blank" to={item.tiktok}>
+                          <FaTwitter className="w-4 h-4 md:w-7 md:h-7" />
+                        </Link>
+                        <Link target="_blank" to={item.facebook}>
+                          <FaFacebook className="w-4 h-4 md:w-7 md:h-7" />
+                        </Link>
+                        <Link target="_blank" to={item.tiktok}>
+                          <FaTiktok className="w-4 h-4 md:w-7 md:h-7" />
+                        </Link>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div className="w-[87px] h-auto overflow-hidden">
-                  <img src="/images/home/partner/jabodetabek/infinite-live.png" />
-                </div>
-                <div className="flex-center">
-                  <img src="/icons/polygon-left.svg" alt="icon polygon left" className="w-full" />
-                </div>
-              </div>
-              <div className="border-t border-[#EAEAEA] px-3 md:px-5 pt-5 flex flex-col gap-1 md:gap-3 ">
-                <h3 className="text-lg font-bold md:text-xl">PT. INFINITE LIVE PRODUCTION</h3>
-                <p className="text-xs font-normal leading-4 md:text-sm md:leading-5">
-                  Lorem ipsum dolor sit amet consectetur. Hendrerit elementum maecenas sollicitudin sem ultrices. Non
-                  cras ornare amet erat sit. Id morbi massa euismod semper dignissim consequat eu. Cras quis magna
-                  rutrum aenean gravida vitae varius.
-                </p>
-              </div>
-              <div className="flex flex-col gap-0 pt-3 pr-5 md:pr-10 md:pt-5 md:ps-5 ps-3">
-                <h3 className="mb-2 text-lg font-bold md:text-xl">Contact Information</h3>
-                <ul className="flex flex-col gap-3 md:gap-5">
-                  <li className="flex items-center justify-start gap-5 md:gap-8">
-                    <FaPhoneVolume className="w-5 h-5 -rotate-45" />
-                    <p className="w-full text-xs font-medium md:text-sm">+62-812-8816-2075</p>
-                  </li>
-                  <li className="flex items-center justify-start gap-8">
-                    <FaEnvelope className="w-5 h-5 font-bold" />
-                    <p className="w-full text-xs font-medium md:text-sm">ngi-infinite@gmail.com</p>
-                  </li>
-                  <li className="flex items-start justify-start gap-8">
-                    <FaLocationDot className="w-5 h-5" />
-                    <p className="w-full text-xs font-medium leading-4 md:leading-5 md:text-sm">
-                      Jl. Palem VII No.78, RT.2/RW.8, Petukangan Utara, Kec. Pesanggrahan, Kota Jakarta Selatan, Daerah
-                      Khusus Ibukota Jakarta 12260
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-3 mt-5 flex-center md:mt-3">
-                <p className="text-xs md:text-sm text-primary">ngi-infinite.com</p>
-                <ul className="w-full gap-3 md:gap-8 flex-center ">
-                  <li>
-                    <FaInstagram className="w-4 h-4 md:w-7 md:h-7" />
-                  </li>
-                  <li>
-                    <FaTwitter className="w-4 h-4 md:w-7 md:h-7" />
-                  </li>
-                  <li>
-                    <FaFacebook className="w-4 h-4 md:w-7 md:h-7" />
-                  </li>
-                  <li>
-                    <FaTiktok className="w-4 h-4 md:w-7 md:h-7" />
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+              )
+            })}
+          </Carousel>
         </div>
       ) : null}
     </section>

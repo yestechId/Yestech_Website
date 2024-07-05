@@ -38,21 +38,145 @@ body {
 }
 
 .button-primary {
-  @apply hover:bg-primary hover:text-white text-primary cursor-pointer transition-all;
+  @apply transition-all cursor-pointer hover:bg-primary hover:text-white text-primary;
 }
 
 .button-secondary {
-  @apply hover:bg-white hover:text-black text-white cursor-pointer transition-all;
+  @apply text-white transition-all cursor-pointer hover:bg-white hover:text-black;
 }
 
 .list-about-us {
   @apply w-[40%]   font-bold flex items-center;
 }
 .list-item-about-us {
-  @apply flex-center text-white rounded-full bg-primary;
+  @apply text-white rounded-full flex-center bg-primary;
 }
 
 .bg-blur-blue {
   backdrop-filter: blur(50px);
   background-color: rgba(0, 0, 255, 0.8); /* Adjust the blue color and opacity as needed */
+}
+
+.slick-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+/* hidden dot carousel-react-responsive */
+.carousel .control-dots {
+  display: none;
+}
+
+/* dot carousel slick home */
+/* dekstop start */
+.custom-dot {
+  margin-left: -440px !important;
+  margin-top: 20px !important;
+  width: 35px !important;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  margin: 0 5px;
+}
+
+.custom-dot::after {
+  position: absolute;
+  content: '';
+  background-color: white !important;
+  width: 8px !important;
+  height: 8px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.custom-dot.active {
+  border-radius: 30px !important;
+  -webkit-border-radius: 30px !important;
+  -moz-border-radius: 30px !important;
+  -ms-border-radius: 30px !important;
+  -o-border-radius: 30px !important;
+  background-color: #223dfe !important;
+  width: 35px !important;
+  height: 8px !important;
+}
+
+.custom-dot.active::after {
+  display: none; /* Hide the white dot for active state */
+  height: 8px !important;
+}
+
+.slick-prev,
+.slick-next {
+  display: none !important;
+}
+/* desktop end*/
+
+/* mobile start */
+@media (min-width: 320px) and (max-width: 767px) {
+  .custom-dot {
+    margin-left: -50px !important;
+    margin-top: 14px !important;
+    width: 35px !important;
+    height: 8px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin: 0 5px;
+  }
+
+  .custom-dot::after {
+    position: absolute;
+    content: '';
+    background-color: white !important;
+    width: 8px !important;
+    height: 8px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+
+  .custom-dot.active {
+    border-radius: 30px !important;
+    -webkit-border-radius: 30px !important;
+    -moz-border-radius: 30px !important;
+    -ms-border-radius: 30px !important;
+    -o-border-radius: 30px !important;
+    background-color: #223dfe !important;
+    width: 35px !important;
+    height: 8px !important;
+  }
+
+  .custom-dot.active::after {
+    display: none; /* Hide the white dot for active state */
+    height: 8px !important;
+  }
+
+  .slick-prev,
+  .slick-next {
+    display: none !important;
+  }
 }
