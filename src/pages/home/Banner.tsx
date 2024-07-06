@@ -6,19 +6,10 @@ import 'slick-carousel/slick/slick-theme.css'
 import { BASE_API } from '../../config/env'
 import { Link } from 'react-router-dom'
 import Skeleton from '../../components/atoms/Skeleton'
-
-interface IBanner {
-  id: number
-  details: string
-  title: string
-  link: string
-  imageBanner: string
-  createdAt?: string
-  updatedAt?: string
-}
+import { IBannerHome } from '../../types/IBannerHome'
 
 const Banner = () => {
-  const [data, setData] = useState<IBanner[]>([])
+  const [data, setData] = useState<IBannerHome[]>([])
   const [isLoading, setIsLoading] = useState(true)
   console.log('🚀 ~ Banner ~ isLoading:', isLoading)
   const [currentProductIndex, setCurrentProductIndex] = useState(0)

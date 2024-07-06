@@ -5,23 +5,12 @@ import { Carousel } from 'react-responsive-carousel'
 import { BASE_API } from '../../config/env'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Skeleton from '../../components/atoms/Skeleton'
-
-interface IImage {
-  link: string
-}
-interface INews {
-  id: number
-  name: string
-  details: string
-  imageNews: IImage[]
-  createdAt?: string
-  updatedAt?: string
-}
+import { INewsHome } from '../../types/INewsHome'
 
 const News = () => {
-  const [data, setdata] = useState<INews[]>([])
+  const [data, setdata] = useState<INewsHome[]>([])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [dataBanner, setDataBanner] = useState<INews | null>(null)
+  const [dataBanner, setDataBanner] = useState<INewsHome | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const fetchData = async () => {
     setIsLoading(true)

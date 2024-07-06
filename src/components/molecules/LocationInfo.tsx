@@ -1,38 +1,7 @@
 import { BASE_API } from '../../config/env'
+import { ILocations } from '../../types/IMapView'
 
-interface IOwner {
-  id: number
-  name: string
-  details: string
-  noHp: string
-  image: string
-  email: string
-  alamat: string
-  linkWeb: string
-  instagram: string
-  facebook: string
-  tiktok: string
-  youtube: string
-  categoryYestechOwnerId: number
-  createdAt?: string
-  updatedAt?: string
-  categoryYestechOwner: {
-    id: number
-    name: string
-    createdAt?: string
-    updatedAt?: string
-  }
-}
-
-interface LocationInfoProps {
-  name: string
-  isHovered: boolean
-  currentData: IOwner[]
-  handleMouseEnter: (location: string) => void
-}
-
-const LocationInfo: React.FC<LocationInfoProps> = ({ currentData, name, isHovered, handleMouseEnter }) => {
-  console.log('🚀 ~ currentData:', currentData)
+const LocationInfo: React.FC<ILocations> = ({ currentData, name, isHovered, handleMouseEnter }) => {
   let infoContent: React.ReactNode = null
 
   switch (name) {

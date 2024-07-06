@@ -6,45 +6,8 @@ import Home from '../../services/home'
 import { Carousel } from 'react-responsive-carousel'
 import { BASE_API } from '../../config/env'
 import { Link } from 'react-router-dom'
-
-interface ICategoryOwner {
-  id: number
-  name: string
-  createdAt?: string
-  updatedAt?: string
-  top: {
-    md: number
-    xs: number
-  }
-  left: {
-    md: number
-    xs: number
-  }
-}
-
-interface IOwner {
-  id: number
-  name: string
-  details: string
-  noHp: string
-  image: string
-  email: string
-  alamat: string
-  linkWeb: string
-  instagram: string
-  facebook: string
-  tiktok: string
-  youtube: string
-  categoryYestechOwnerId: number
-  createdAt?: string
-  updatedAt?: string
-  categoryYestechOwner: {
-    id: number
-    name: string
-    createdAt?: string
-    updatedAt?: string
-  }
-}
+import { ICategoryOwner } from '../../types/IMapView'
+import { IOwner } from '../../types/IMapView'
 
 const MapView: React.FC = () => {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null)

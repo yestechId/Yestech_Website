@@ -3,24 +3,9 @@ import Home from '../../services/home'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import { BASE_API } from '../../config/env'
-
-interface IImage {
-  link: string
-}
-
-interface ICaseList {
-  id: number
-  name: string
-  image: IImage[]
-  location: string
-  product: string
-  details: string
-  createdAt?: string
-  updatedAt?: string
-}
-
+import { ICaseListHome } from '../../types/ICaseListHome'
 const CaseList = () => {
-  const [data, setData] = useState<ICaseList[]>([])
+  const [data, setData] = useState<ICaseListHome[]>([])
   const [currentCaseIndex, setCurrentCaseIndex] = useState(0)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
