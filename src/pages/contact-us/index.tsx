@@ -1,7 +1,41 @@
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { FaEnvelope, FaFacebook, FaInstagram, FaTwitter, FaPhoneVolume } from 'react-icons/fa'
 import { FaLocationDot } from 'react-icons/fa6'
+import * as yup from 'yup'
+import { IContactForm } from '../../types/IContactForm'
 
 const ContactUs = () => {
+  const formValues: IContactForm = {
+    name: '',
+    phone: '',
+    email: ''
+  }
+
+  const schema = yup.object().shape({
+    name: yup.string().required('Name is required'),
+    phone: yup
+      .string()
+      .matches(/^[0-9]+$/, 'Phone number is not valid')
+      .required('Phone is required'),
+    email: yup.string().email('Invalid email').required('Email is required')
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<IContactForm>({
+    defaultValues: formValues,
+    resolver: yupResolver(schema)
+  })
+
+  const handleSubmitForm = (data: IContactForm) => {
+    const message = `Name  : ${data.name} 
+  Phone : ${data.phone} 
+  Email  : ${data.email}`
+    window.open(`https://api.whatsapp.com/send?phone=6281288162075&text=${encodeURIComponent(message)}`, '_blank')
+  }
   return (
     <section className="relative overflow-hidden top-0 right-0 left-0 bottom-0 w-full py-20 min-h-screen bg-[#10121D] flex-center gap-3 md:gap-5 flex-col ">
       <h1 className="mt-5 text-3xl font-bold text-white md:text-5xl md:mt-0">Contact Us</h1>
@@ -39,36 +73,48 @@ const ContactUs = () => {
             </li>
           </ul>
         </div>
-        <form className="relative w-full  h-[357px] md:h-auto bg-white md:bg-transparent rounded-md md:rounded-none mb-5 md:mb-0 md:w-[60%] p-8 flex flex-col gap-5">
+        <form
+          onSubmit={handleSubmit(handleSubmitForm)}
+          className="relative w-full  h-[357px] md:h-auto bg-white md:bg-transparent rounded-md md:rounded-none mb-5 md:mb-0 md:w-[60%] p-8 flex flex-col gap-5"
+        >
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="text-[#8D8D8D] font-medium text-sm md:text-lg">
+            <label htmlFor="name" className="text-[#8D8D8D] font-medium text-sm md:text-lg">
               Name
             </label>
             <input
+              id="name"
               type="text"
               placeholder="Full Name"
-              className="placeholder:text-[#011C2A] text-[20px] font-semibold border-b pb-2 border-[#8D8D8D]"
+              className="placeholder:text-[#011C2A] focus:bg-white bg-white outline-none text-[20px] font-semibold border-b pb-2 border-[#8D8D8D]"
+              {...register('name')}
             />
+            {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="text-[#8D8D8D] font-medium text-sm md:text-lg">
+            <label htmlFor="phone" className="text-[#8D8D8D] font-medium text-sm md:text-lg">
               Phone Number
             </label>
             <input
+              id="phone"
               type="number"
               placeholder="08379892029"
-              className="placeholder:text-[#011C2A] text-[20px] font-semibold border-b pb-2 border-[#8D8D8D]"
+              className="placeholder:text-[#011C2A] focus:bg-white bg-white outline-none text-[20px] font-semibold border-b pb-2 border-[#8D8D8D]"
+              {...register('phone')}
             />
+            {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="text-[#8D8D8D] font-medium text-sm md:text-lg">
+            <label htmlFor="email" className="text-[#8D8D8D] font-medium text-sm md:text-lg">
               Email
             </label>
             <input
+              id="email"
               type="email"
               placeholder="example@gmail.com"
-              className="placeholder:text-[#011C2A] text-[20px] font-semibold border-b pb-2 border-[#8D8D8D]"
+              className="placeholder:text-[#011C2A] focus:bg-white bg-white outline-none text-[20px] font-semibold border-b pb-2 border-[#8D8D8D]"
+              {...register('email')}
             />
+            {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
           </div>
           <button
             type="submit"
