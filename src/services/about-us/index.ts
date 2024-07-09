@@ -8,7 +8,10 @@ import { GET } from '../method'
 
 const getHistory = () => GET(endpoint.history)
 
+const getWarehouse = () => GET(endpoint.warehouse)
+
 const ABOUTUS = {
-  getHistory
+  getHistory,
+  getWarehouse
 }
 export default ABOUTUS

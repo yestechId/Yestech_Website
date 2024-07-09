@@ -9,7 +9,8 @@ const endpoint = {
   news: `/news`,
 
   // about-us
-  history: `/histori`
+  history: `/histori`,
+  warehouse: `/warehouse`
 }
 
 export default endpoint

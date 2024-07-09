@@ -3,6 +3,7 @@ import { FaLongArrowAltRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Certificate from '../../components/organisms/Certificate'
 import History from './History'
+import Warehouse from './Warehouse'
 
 const AboutUs = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -150,52 +151,7 @@ const AboutUs = () => {
 
           <History />
 
-          <div className="relative flex flex-col items-start justify-center w-full gap-10 px-5 py-10 bg-white lg:py-32 h-min lg:flex-row lg:px-14">
-            <div className="w-full lg:w-[30%] flex flex-col gap-5 lg:pt-10">
-              <h3 className="text-3xl font-bold leading-10 text-secondary">
-                Warehouse <br /> and Services Center
-              </h3>
-              <p className="text-[16px] font-normal text-[#444444]">
-                Pergudangan Eraprima Industrial Park No C8. Jl. KH. Agus Salim No.2, Tangerang, Banten 15141
-              </p>
-              <Link to={'/'} className="flex items-center gap-3 text-[16px] font-norma text-primary ">
-                See on Google Maps
-                <div className="flex-center">
-                  <img src="/icons/arrow-right-long-blue.svg" alt="icon right right blue" className="w-full " />
-                </div>
-              </Link>
-            </div>
-
-            <div className="w-full lg:w-[70%] flex items-center justify-between px-0 md:px-5 gap-5">
-              <div className="items-center justify-center hidden mb-24 md:flex">
-                <img src="/icons/arrow-right-grey.svg" alt="icon right right grey" className="w-full " />
-              </div>
-              <div className="flex flex-col w-full gap-5">
-                <div className="w-">
-                  <img src="/images/about-us/carousel-service.png" className="w-full h-auto" />
-                </div>
-
-                <ul className="flex items-center gap-3 justify-star">
-                  <li>
-                    <img src="/images/about-us/thumnuil-carousel-service.png" className="w-[45px] md:w-[60px] h-auto" />
-                  </li>
-                  <li>
-                    <img src="/images/about-us/thumnuil-carousel-service.png" className="w-[45px] md:w-[60px] h-auto" />
-                  </li>
-                  <li>
-                    <img src="/images/about-us/thumnuil-carousel-service.png" className="w-[45px] md:w-[60px] h-auto" />
-                  </li>
-
-                  <li>
-                    <img src="/images/about-us/thumnuil-carousel-service.png" className="w-[45px] md:w-[60px] h-auto" />
-                  </li>
-                </ul>
-              </div>
-              <div className="items-center justify-center hidden mb-24 md:flex">
-                <img src="/icons/arrow-right-grey.svg" alt="icon right right grey" className="w-full rotate-180" />
-              </div>
-            </div>
-          </div>
+          <Warehouse />
 
           <Certificate />
         </div>
