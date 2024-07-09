@@ -11,7 +11,6 @@ import { IBannerHome } from '../../types/IBannerHome'
 const Banner = () => {
   const [data, setData] = useState<IBannerHome[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  console.log('🚀 ~ Banner ~ isLoading:', isLoading)
   const [currentProductIndex, setCurrentProductIndex] = useState(0)
   const mainSliderRef = useRef<Slider>(null)
   const thumbSliderRef = useRef<Slider>(null)

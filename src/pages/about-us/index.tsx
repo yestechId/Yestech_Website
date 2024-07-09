@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Certificate from '../../components/organisms/Certificate'
+import History from './History'
 
 const AboutUs = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -147,77 +148,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="w-full h-min pb-10 relative bg-[#10121D]">
-            <div className="w-full h-[48px] lg:h-[70px]  flex justify-start items-center bg-white">
-              <button className="h-full px-8 text-xl font-bold text-white md:px-16 flex-center bg-primary tect-white">
-                History
-              </button>
-              <ul className="gap-3 md:gap-5 ps-3 md:ps-8 flex-center">
-                <li>2021</li>
-                <div className="flex-center">
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="block w-8 md:w-28 h-[1px] bg-secondary "></span>
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                </div>
-                <li>2021</li>
-                <div className="flex-center">
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="block w-8 md:w-28 h-[1px] bg-secondary "></span>
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                </div>{' '}
-                <li>2021</li>
-                <div className="flex-center">
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="block w-8 md:w-28 h-[1px] bg-secondary "></span>
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                </div>
-                <li>2021</li>
-                <div className="flex-center">
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="block w-8 md:w-28 h-[1px] bg-secondary "></span>
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                </div>
-                <li>2021</li>
-                <div className="flex-center">
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                  <span className="block w-8 md:w-28 h-[1px] bg-secondary "></span>
-                  <span className="block w-2 h-2 rounded-full bg-primary"></span>
-                </div>
-              </ul>
-            </div>
-
-            <div className="relative z-10 flex items-center justify-between w-full gap-10 px-5 py-16 md:px-14">
-              <div className="items-center justify-center hidden lg:flex">
-                <img src="/icons/kerucut-left.svg" alt="icon kerucut left" className="w-full rotate-180" />
-              </div>
-              <div className="flex flex-col gap-5 md:gap-8 lg:flex-row">
-                <img src="/images/about-us/carousel-list.png" className="w-[560px] h-auto" />
-                <p className="pt-0 text-lg font-normal text-white md:pt-5 line-clamp-4">
-                  Changsa Yasheng Technology & Development Co., LTD was Founded in 2001
-                </p>
-                <div className="w-[90%] md:hidden mx-auto  flex  items-center mt-20 justify-between gap-2 ">
-                  <div className="flex items-center justify-center md:hidden">
-                    <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full" />
-                  </div>
-                  <div className="gap-2 flex-center">
-                    <span className="block w-10 h-[6px] rounded-full bg-primary"></span>
-                    <span className="block w-2 h-2 rounded-full bg-slate-200"></span>
-                    <span className="block w-2 h-2 rounded-full bg-slate-200"></span>
-                  </div>
-                  <div className="flex items-center justify-center md:hidden">
-                    <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full rotate-180" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="items-center justify-center hidden lg:flex">
-                <img src="/icons/kerucut-left.svg" alt="icon kerucut left" className="w-full" />
-              </div>
-              <p className="absolute  top-[80%] md:top-[72%] left-[50%] md:left-[63%] z-[-1] -translate-x-[50%] -translate-y-[50%] text-[#20243A] text-[13rem] md:text-[20rem] font-bold">
-                2001
-              </p>
-            </div>
-          </div>
+          <History />
 
           <div className="relative flex flex-col items-start justify-center w-full gap-10 px-5 py-10 bg-white lg:py-32 h-min lg:flex-row lg:px-14">
             <div className="w-full lg:w-[30%] flex flex-col gap-5 lg:pt-10">

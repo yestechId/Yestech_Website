@@ -125,6 +125,68 @@ body {
 }
 /* desktop end*/
 
+/* carousel-dots-about-us-history */
+.carousel-dots-about-us-history {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 0px;
+  position: absolute !important;
+  top: 405px !important;
+  left: 20% !important;
+  translate: -50% -50% !important;
+  z-index: 9999;
+  width: 200px;
+}
+.custom-dots-about-us-history {
+  margin-left: -50px !important;
+  margin-top: 14px !important;
+  width: 35px !important;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  margin: 0 5px;
+}
+
+.custom-dots-about-us-history::after {
+  position: absolute;
+  content: '';
+  background-color: white;
+  width: 7px !important;
+  height: 7px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.custom-dots-about-us-history.active {
+  border-radius: 30px !important;
+  -webkit-border-radius: 30px !important;
+  -moz-border-radius: 30px !important;
+  -ms-border-radius: 30px !important;
+  -o-border-radius: 30px !important;
+  background-color: #223dfe !important;
+  width: 25px !important;
+  height: 8px !important;
+  position: absolute;
+  left: -2px;
+}
+
+.custom-dots-about-us-history.active::after {
+  display: none; /* Hide the white dot for active state */
+  height: 8px !important;
+}
+
 /* mobile start */
 @media (min-width: 320px) and (max-width: 767px) {
   .custom-dot {

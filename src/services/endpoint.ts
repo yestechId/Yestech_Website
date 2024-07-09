@@ -6,7 +6,10 @@ const endpoint = {
   categoryOwner: `/categoryYestech`,
 
   // news
-  news: `/news`
+  news: `/news`,
+
+  // about-us
+  history: `/histori`
 }
 
 export default endpoint
