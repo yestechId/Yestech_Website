@@ -75,6 +75,7 @@ const Banner = () => {
       console.log('🚀 ~ Banner ~ current:', current)
       setCurrentProductIndex(next)
       thumbSliderRef.current?.slickGoTo(next)
+      thumbSliderMobileRef.current?.slickGoTo(next)
     }
   }
 
@@ -131,7 +132,7 @@ const Banner = () => {
                     </div>
                   </div>
 
-                  <div className="md:w-[40%] mt-10 md:mt-0 top-0  md:-top-80 w-full  relative md:left-[60%]   flex-center pt-0">
+                  <div className="md:w-[40%] mt-10 md:mt-0 top-0  px-5 md:px-0 md:-top-80 w-full  relative md:left-[60%]   flex-center pt-0">
                     <img
                       src={`${BASE_API}/${item.imageBanner}`}
                       alt={item.title}
@@ -183,10 +184,16 @@ const Banner = () => {
                 </div>
               ))}
             </Slider>
-            <div className="absolute text-5xl cursor-pointer bottom-10 left-14 flex-center" onClick={previous}>
+            <div
+              className="absolute text-5xl cursor-pointer top-[50%] left-[8%] -translate-x-[50%] -translate-y-[50%] flex-center"
+              onClick={previous}
+            >
               <img src="/icons/arrow-left.svg" alt="icon left" className="w-full text-white " />
             </div>
-            <div className="absolute text-3xl cursor-pointer right-32 bottom-10 flex-center" onClick={next}>
+            <div
+              className="absolute text-3xl cursor-pointer top-[50%] right-[0%] -translate-x-[50%] -translate-y-[50%] flex-center"
+              onClick={next}
+            >
               <img src="/icons/arrow-right.svg" alt="icon-right" className="w-full text-white " />
             </div>
           </div>
