@@ -13,3 +13,15 @@ export const GET = async (path: string) => {
     return error.response.data
   }
 }
+
+export const GETDETAIL = async (path: string, id: number) => {
+  try {
+    const response = await axios.get(`${BASE_API}${path}?id=${id}`)
+    if (response.status !== 200) {
+      return response.data
+    }
+    return response.data
+  } catch (error: any) {
+    return error.response.data
+  }
+}

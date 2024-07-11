@@ -53,7 +53,7 @@ const app = createBrowserRouter([
     )
   },
   {
-    path: '/read-news',
+    path: '/read-news/:id',
     element: (
       <MainLayout>
         <NewsRead />

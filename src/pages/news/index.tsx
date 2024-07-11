@@ -40,6 +40,8 @@ const News = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex < (dataBanner?.imageNews.length || 1) - 1 ? prevIndex + 1 : 0))
   }
 
+  const textContents = dataBanner?.details?.map((detail) => detail.text).join(' ') || ''
+
   if (isLoading) {
     return <Skeleton />
   }
@@ -72,7 +74,7 @@ const News = () => {
           </ul>
 
           {/* versi dekstop */}
-          <div className="flex-center ">
+          <div className="w-full flex-center">
             <div className="items-center justify-center hidden cursor-pointer md:flex" onClick={handlePrevClick}>
               <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full" />
             </div>
@@ -97,7 +99,8 @@ const News = () => {
               </Carousel>
 
               <div className="flex overflow-y-auto  flex-col items-start justify-start text-sm lg:text-[16px]  gap-5 md:gap-0 lg:gap-10 w-full md:w-[35%] text-[#444444]">
-                <p className="xs:h-min lg:h-min line-clamp-[15]">{dataBanner?.details}</p>
+                <p className="xs:h-min lg:h-min line-clamp-[15]" dangerouslySetInnerHTML={{ __html: textContents }} />
+
                 <div className="flex items-center justify-center w-full pb-5 md:pb-0 md:justify-start ">
                   <Link
                     to={`/read-news/${dataBanner?.id}`}
@@ -139,27 +142,35 @@ const News = () => {
           <h3 className="  font-bold text-[#121221] text-2xl md:text-3xl mb-5">Latest News</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-x-10 md:gap-10 gap-y-5 md:gap-y-10">
-            {data?.map((item) => {
-              return (
-                <Link
-                  key={item.id}
-                  to="/read-news"
-                  className="flex flex-row w-full h-auto gap-3  card md:w-[280px] md:flex-col md:gap-0"
-                >
-                  <img src="/images/news/news-item.png" alt="item" className="w-[183px] md:w-[316px] " />
-                  <div className="flex flex-col w-full gap-3 mt-0 md:gap-5 md:mt-3">
-                    <h4 className="text-sm font-bold leading-5 line-clamp-2 md:text-xl md:leading-6 md:line-clamp-2">
-                      {item.name}
-                    </h4>
-                    <ul className="text-xs flex gap-3 font-normal text-[#949494]">
-                      {/* <li>1 Hour Ago</li>
-                      <li>1 Hour Ago</li> */}
-                      <li className="line-clamp-3">{item.details}</li>
-                    </ul>
-                  </div>
-                </Link>
-              )
-            })}
+            {data.length > 0
+              ? data?.map((item) => {
+                  const itemTextContent = item.details.map((detail) => detail.text).join(' ')
+                  return (
+                    <Link
+                      key={item.id}
+                      to={`/read-news/${item.id}`}
+                      className="flex flex-row w-full rounded-md overflow-hidden   h-auto gap-3  lg:w-[200px] xl:w-[240px] md:flex-col md:gap-0"
+                    >
+                      <img
+                        src={`${BASE_API}/${item.imageNews[0].link}`}
+                        alt={dataBanner?.name}
+                        className="w-[183px] md:w-[316px] "
+                      />
+
+                      <div className="flex flex-col w-full gap-3 mt-0 md:gap-5 md:mt-3">
+                        <h4 className="text-sm font-bold leading-5 md:h-14 line-clamp-2 md:text-xl md:leading-6 md:line-clamp-2">
+                          {item.name}
+                        </h4>
+                        <ul className="text-xs -mt-0 md:-mt-5 flex gap-3 font-normal text-[#949494]">
+                          {/* <li>1 Hour Ago</li>
+                          <li>1 Hour Ago</li> */}
+                          <li className="line-clamp-3" dangerouslySetInnerHTML={{ __html: itemTextContent }}></li>
+                        </ul>
+                      </div>
+                    </Link>
+                  )
+                })
+              : null}
           </div>
         </section>
       </div>

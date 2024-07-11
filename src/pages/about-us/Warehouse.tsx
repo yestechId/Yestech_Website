@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ABOUTUS from '../../services/about-us'
 import { IWarehouse } from '../../types/IWarehouse'
@@ -44,7 +44,10 @@ const Warehouse = () => {
   }
 
   return (
-    <div className="relative flex flex-col items-start justify-center w-full gap-10 px-5 py-10 bg-white lg:py-32 h-min lg:flex-row lg:px-14">
+    <div
+      id="warehouse"
+      className="relative flex flex-col items-start justify-center w-full gap-10 px-5 py-10 bg-white lg:py-32 h-min lg:flex-row lg:px-14"
+    >
       <div className="w-full lg:w-[30%] flex flex-col gap-5 lg:pt-10">
         <h3 className="text-3xl font-bold leading-10 text-secondary">
           Warehouse <br /> and Services Center
@@ -77,17 +80,17 @@ const Warehouse = () => {
               </div>
             ))}
           </Carousel>
-          <ul className="flex items-center justify-start gap-3">
+          <ul className="flex items-center justify-start w-full gap-3 overflow-x-auto">
             {data?.image.map((image, index) => (
               <li
                 key={index}
                 onClick={() => handleThumbnailClick(index)}
-                className={`cursor-pointer ${index === currentImageIndex ? 'border-2 border-primary' : ''}`}
+                className={`cursor-pointer rounded-xl ${index === currentImageIndex ? 'border-2 border-primary' : ''}`}
               >
                 <img
                   src={`${BASE_API}/${image.link}`}
                   alt={`Thumbnail ${index + 1}`}
-                  className="w-[45px] md:w-[60px] h-auto"
+                  className="md:w-[50px] w-[35px] h-[35px]  md:h-[50px] rounded-md md:rounded-xl object-cover"
                 />
               </li>
             ))}

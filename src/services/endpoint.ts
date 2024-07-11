@@ -7,6 +7,7 @@ const endpoint = {
 
   // news
   news: `/news`,
+  detailNews: `/detail-news`,
 
   // about-us
   history: `/histori`,

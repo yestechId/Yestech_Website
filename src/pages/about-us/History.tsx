@@ -4,6 +4,7 @@ import { IHistory } from '../../types/IHistory'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import Skeleton from '../../components/atoms/Skeleton'
 const History = () => {
   const [data, setData] = useState<IHistory[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -82,23 +83,22 @@ const History = () => {
     slidesToScroll: 1,
     afterChange: (index: number) => setCurrentProductIndex(index),
     customPaging: (i: number) => (
-      <div
-        className={`custom-dots-about-us-history ${i === currentProductIndex ? 'active' : ''}`}
-        onClick={() => console.log('index', i)}
-      ></div>
+      <div className={`custom-dots-about-us-history ${i === currentProductIndex ? 'active' : ''}`}></div>
     ),
     appendDots: (dots: React.ReactNode) => (
       <div className="relative top-50">
         <ul className="absolute carousel-dots-about-us-history">{dots}</ul>
       </div>
     )
+    // hidden event onclick slider dots
+    // customPaging: () => <div className="custom-dots-about-us-history"></div>
   }
 
   if (isLoading) {
-    return <div>Loading</div>
+    return <Skeleton />
   }
   return (
-    <div className="w-full h-min pb-0 md:pb-10 relative bg-[#10121D]">
+    <div id="history" className="w-full h-min pb-0 md:pb-10 relative bg-[#10121D]">
       <div className="w-full h-[48px] lg:h-[70px]  flex justify-start items-center bg-white">
         <button className="h-full px-8 text-xl font-bold text-white md:px-16 flex-center bg-primary tect-white">
           History
