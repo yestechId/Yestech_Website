@@ -37,7 +37,7 @@ const app = createBrowserRouter([
     )
   },
   {
-    path: '/detail-product',
+    path: '/detail-product/:id',
     element: (
       <MainLayout>
         <DetailProduct />

@@ -153,23 +153,23 @@ const Banner = () => {
               {data?.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`flex font-semibold outline-none card ${
+                  className={`flex font-semibold outline-none card  ${
                     index === currentProductIndex ? 'text-primary' : 'text-white'
                   }`}
                 >
                   <span className="w-6 h-6 text-xs font-bold border-2 rounded-full flex-center">{index + 1}</span>
-                  <h3 className="-mt-6 text-sm text-start ms-10 line-clamp-2">{item.title}</h3>
+                  <h3 className="-mt-6 text-sm w-44 text-start ms-10 line-clamp-2">{item.title}</h3>
                   <p className="text-xs font-medium text-start ms-10 line-clamp-1">{item.details}</p>
                 </div>
               ))}
             </Slider>
-            <div className="absolute cursor-pointer text-3xl left-[23.5rem] bottom-[4.7rem] flex-center" onClick={next}>
+            <div className="absolute cursor-pointer text-3xl left-[20.5rem] bottom-[4.7rem] flex-center" onClick={next}>
               <img src="/icons/arrow-right.svg" alt="icon-right" className="hidden w-full text-white md:block" />
             </div>
           </div>
 
           {/* thumbnuil for mobile  */}
-          <div className="left-0 w-[100%] bg-red-600 gap-8 -mt-32 mb-10 ps-5  flex md:hidden">
+          <div className="left-0 w-[100%]  gap-8 -mt-32 mb-10 ps-5  flex md:hidden">
             <Slider ref={thumbSliderMobileRef} {...settingsMobile} className="flex w-full gap-0">
               {data.map((item, index) => (
                 <div

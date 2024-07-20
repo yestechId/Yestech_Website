@@ -11,7 +11,13 @@ const endpoint = {
 
   // about-us
   history: `/histori`,
-  warehouse: `/warehouse`
+  warehouse: `/warehouse`,
+
+  // product
+  product: `/products`,
+  detailProduct: `/products/detail`,
+  category: '/categoryProducts',
+  typeCategory: '/type'
 }
 
 export default endpoint

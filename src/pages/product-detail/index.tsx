@@ -1,7 +1,121 @@
-import { FaArrowRight } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import RelatedProduct from './related-product'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { IItemProduct, IProduct } from '../../types/IProduct'
+import PRODUCT from '../../services/product'
+import Skeleton from '../../components/atoms/Skeleton'
+import { BASE_API } from '../../config/env'
+import DownloadTable from './DownloadTable'
+import { IParameters } from '../../types/IWarehouse'
 
+type RenderContentProps = {
+  layout: string
+  item: IItemProduct
+}
 const DetailProduct = () => {
+  const { id } = useParams()
+  const [data, setdata] = useState<IProduct | null>(null)
+  const [parameters, setParameters] = useState<IParameters[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const LIMIT_PAGE = 3
+  const [params, setParams] = useState({
+    category: '',
+    search: '',
+    page: 1,
+    limit: LIMIT_PAGE,
+    type: 'all'
+  })
+
+  const fetchData = async (id: number) => {
+    setIsLoading(true)
+    try {
+      const response = await PRODUCT.getDetailProduct(id)
+      const data = await response
+      setdata(data.data)
+      setParameters(data?.data?.parameters)
+      setParams({ ...params, category: data?.data?.categoryId, type: 'all' })
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log('🚀 ~ error:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData(Number(id))
+  }, [id])
+
+  if (isLoading) {
+    return <Skeleton />
+  }
+
+  const RenderContentSection: React.FC<RenderContentProps> = ({ layout, item }) => {
+    switch (layout) {
+      case 'teks-details-left-and-image-right':
+        return (
+          <section
+            className={`overflow-auto mx-auto w-full md:w-[80%] flex md:flex-row flex-col justify-between items-center mt-10 md:mt-20 h-min bg-${item?.background}`}
+          >
+            <div className="flex flex-col items-start justify-start w-[90%] mx-auto md:-[40%] gap-3 md:gap-5 ">
+              <h3 className="text-2xl font-bold md:text-3xl text-secondary line-clamp-1 md:line-clamp-none">
+                {item?.title}
+              </h3>
+              <p className="text-sm font-normal md:text-md text-secondary w-full md:w-[80%] md:mt-3">
+                {item?.description}
+              </p>
+            </div>
+            <div className="w-[60%] flex justify-end items-end mt-5 md:mt-0">
+              {item?.images?.map((image, index) => (
+                <img key={index} src={image?.url} alt="list detail" className="object-cover w-full h-auto" />
+              ))}
+            </div>
+          </section>
+        )
+      case 'teks-details-right-and-image-left':
+        return (
+          <section
+            className={`overflow-auto mx-auto w-full md:w-[80%] flex md:flex-row flex-col justify-between items-center mt-10 md:mt-20 h-min bg-${item?.background}`}
+          >
+            <div className="w-[60%] flex justify-end items-end mt-5 md:mt-0">
+              {item?.images?.map((image, index) => (
+                <img key={index} src={image?.url} alt="list detail" className="object-cover w-full h-auto" />
+              ))}
+            </div>
+            <div className="flex flex-col mt-3 md:mt-0 items-start ps-0 md:ps-28 justify-start w-[90%] mx-auto md:-[40%]   gap-2 md:gap-5 ">
+              <h3 className="text-2xl font-bold text-start md:text-3xl text-secondary line-clamp-1 md:line-clamp-none">
+                {item?.title}
+              </h3>
+              <p className="text-sm font-normal md:text-md text-secondary w-full md:w-[80%] mt-0 md:mt-3">
+                {item?.description}
+              </p>
+            </div>
+          </section>
+        )
+
+      case 'teks-details-and-image-center':
+        return (
+          <section
+            className={`overflow-auto mx-auto w-[90%] md:w-[80%] flex-center flex-col-reverse md:flex-col md:mt-20 h-min mt-10 bg-${item?.background}`}
+          >
+            <div className="flex-col w-full gap-2 mb-5 md:gap-5 flex-center ">
+              <h3 className="text-2xl font-bold text-center md:text-3xl text-secondary line-clamp-1 md:line-clamp-none">
+                Curved Splicing
+              </h3>
+              <p className="text-sm font-normal text-center text-secondary">{item?.description}</p>
+            </div>
+            <div className="flex justify-center w-full md:w-[80%] mx-auto">
+              {item?.images?.map((image, index) => (
+                <img key={index} src={image?.url} className="object-cover w-full" alt="list detail" />
+              ))}
+            </div>
+          </section>
+        )
+
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="relative overflow-hidden">
       <header className="w-full relative h-[582px] md:h-[552px] overflow-hidden bg-[url('/images/detail-product/banner-mobile.svg')] md:bg-[url('/images/products/banner-product.svg')] bg-center bg-no-repeat bg-cover rounded-br-[50px]">
@@ -12,7 +126,9 @@ const DetailProduct = () => {
         />
         <div className="container flex-col-reverse w-full h-full flex-between md:flex-row ">
           <div className="flex flex-col w-full md:w-[50%] -top-10 md:-top-0 relative gap-3 md:mt-16 md:ps-10">
-            <h2 className="font-bold text-white text-3xl md:text-5xl  pb-0 md:pb-5 lg:text-[5rem]">MG9 Series</h2>
+            <h2 className="font-bold text-white text-3xl md:text-5xl  pb-0 md:pb-5 lg:text-[4rem] line-clamp-1 md:line-clamp-none">
+              {data?.name}
+            </h2>
             <div className="flex items-end justify-start ">
               <span className="w-40 h-[6px] bg-primary"></span>
               <span className="w-full h-[1px] bg-white"></span>
@@ -28,27 +144,22 @@ const DetailProduct = () => {
               Request a Solition
             </button>
           </div>
-          <div className=" flex items-center justify-end w-[80%]  md:w-[35%] mt-20 md:mt-0">
-            <img src="/images/detail-product/product.png" className="w-full h-auto" />
+          <div className=" flex items-center justify-end w-[80%]   md:w-[35%] mt-20 md:mt-0">
+            <img src={`${BASE_API}/${data?.mainImg[0].link}`} alt={data?.name} className="object-cover w-full h-auto" />
           </div>
         </div>
       </header>
 
       <div className="md:w-[90%] mx-auto w-full">
-        <section className="w-full">
-          <h2 className="mt-10 mb-4  w-[90%] md:w-[80%] mx-auto text-xl font-bold text-center md:mt-20 md:text-3xl text-secondary">
-            z Cover 100% of LED Rental Application
-          </h2>
-          <p className=" font-medium md:font-normal mb-5 text-sm  w-[90%] md:w-[80%] mx-auto leading-5 text-center md:text-[16px] text-normal text-secondary">
-            Original of multi-function & multi-shapes <br /> Indoor & outdoor screen, dance floor, stadium screen, sky
-            curtain...
-          </p>
-          <div className="flex-center w-full md:w-[75%] mx-auto">
-            <img src="/images/detail-product/list-detail-product.png" alt="list detail" />
-          </div>
-        </section>
+        {data?.sections?.map((item, index) => {
+          return (
+            <div key={index} className="w-full mt-10">
+              {<RenderContentSection layout={item?.layout} item={item} />}
+            </div>
+          )
+        })}
 
-        <section className="w-full mt-10 ">
+        {/* <section className="w-full mt-10 ">
           <h2 className="mt-8 mb-4 text-xl mx-auto  w-[90%] md:w-[80%] font-bold text-center md:text-3xl text-secondary">
             Dance Floor
           </h2>
@@ -194,91 +305,11 @@ const DetailProduct = () => {
             <img src="/images/detail-product/list-7.png" alt="list detail" className="w-full h-auto" />
           </div>
         </section>
+         */}
 
-        <section className="w-full overflow-auto mx-auto  bg-[url(/images/detail-product/bg-linear-banner-3.svg)] bg-cover bg-center bg-no-repeat rounded-none md:rounded-[30px] mt-10 md:mt-20 h-min">
-          <div className="flex-col w-[80%] mx-auto mt-12 flex">
-            <div className="flex flex-col items-center justify-between gap-5 md:gap-0 md:flex-row">
-              <h2 className="text-2xl font-bold text-center text-white md:text-4xl ">PARAMETERS</h2>
-              <button className="bg-gradient-to-br from-[#114BA9] to-[#4FC4EA]   gap-5  font-normal rounded-full text-sm flex justify-between items-center text-white py-3 px-10">
-                DOWNLOAD
-                <i className="font-normal text-md">
-                  <FaArrowRight className="text-white -rotate-45" />
-                </i>
-              </button>
-            </div>
-          </div>
-          <div className="w-full px-0 mb-5 -mt-5 md:mb-10 md:-mt-0 md:px-10 flex-center">
-            <img
-              src="/images/detail-product/tabel-parameters.png"
-              alt="list detail"
-              className="hidden w-full h-auto md:block"
-            />
-            <img
-              src="/images/detail-product/tabel-parameters-mobile.png"
-              alt="list detail"
-              className="w-full h-auto md:hidden"
-            />
-          </div>
-        </section>
+        <DownloadTable parameters={parameters} />
 
-        <section className=" overflow-auto mx-auto w-[90%] lg:w-[80%] flex-center flex-col my-10 md:my-20 h-min">
-          <div className="flex-col w-full gap-5 mb-5 flex-center ">
-            <h3 className="text-2xl font-bold text-center md:text-3xl text-secondary">RELATED PRODUCT & ACCESSORIES</h3>
-          </div>
-          <div className="grid grid-cols-2 gap-5 overflow-hidden md:gap-10 lg:grid-cols-3 ">
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/detail-product/related-product-1.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/detail-product/related-product-2.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/detail-product/related-product-3.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </section>
+        <RelatedProduct paramsProduct={params} />
       </div>
     </div>
   )

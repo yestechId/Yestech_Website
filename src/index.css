@@ -72,7 +72,7 @@ body {
 /* dot carousel slick home */
 /* dekstop start */
 .custom-dot {
-  margin-left: -440px !important;
+  margin-left: -240px !important;
   margin-top: 20px !important;
   width: 35px !important;
   height: 8px;
@@ -187,6 +187,56 @@ body {
   height: 8px !important;
 }
 
+/* style pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  list-style: none;
+  margin: 10px 0 50px 0;
+}
+
+.page-item {
+  margin: 0 0.5rem;
+  color: #222222;
+}
+
+.page-link {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.65rem;
+  background-color: #223dfe;
+  border: 2px solid #223dfe;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.page-link:hover {
+  background-color: #e9ecef;
+  border-color: #ddd;
+}
+
+.page-item.active .page-link {
+  border: 2px solid #223dfe;
+  background-color: white;
+  color: #222222;
+}
+
+.page-item.disabled .page-link {
+  background-color: #e2e8f0;
+  border: 2px solid #e2e8f0;
+  color: #6c757d;
+  cursor: default;
+}
+.page-item.disabled .page-link:hover {
+  background-color: #e2e8f0;
+}
+
 /* mobile start */
 @media (min-width: 320px) and (max-width: 767px) {
   .custom-dot {
@@ -240,5 +290,11 @@ body {
   .slick-prev,
   .slick-next {
     display: none !important;
+  }
+
+  /* pagination */
+  .page-link {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.55rem;
   }
 }

@@ -1,6 +1,123 @@
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { ICategory, IProduct, ITypeCategory } from '../../types/IProduct'
+import PRODUCT from '../../services/product'
+import { BASE_API } from '../../config/env'
+import useDebounce from '../../hooks/useDebounce'
+import { IParamsProduct } from '../../types/IWarehouse'
+import ReactPaginate from 'react-paginate'
+import Loading from '../../components/atoms/Loading'
 
 const Product = () => {
+  const [dataProduct, setDataProduct] = useState<IProduct[]>([])
+  const [categoryProduct, setCategoryProduct] = useState<ICategory[]>([])
+  const [currentCategory, setCurrentCategory] = useState<string>('')
+  const [typeCategoryProduct, setTypeCategoryProduct] = useState<ITypeCategory[]>([])
+  const [currentTypeCategory, setCurrentTypeCategory] = useState<string>('all')
+
+  const [totalPages, setTotalPages] = useState(0)
+
+  const LIMIT_PAGE = 12
+  const [params, setParams] = useState({
+    category: '',
+    search: '',
+    page: 1,
+    limit: LIMIT_PAGE,
+    type: 'all'
+  })
+  const [isLoading, setIsLoading] = useState(true)
+  const [searchParams, setSearchParams] = useSearchParams()
+  let query = searchParams.get('query') || ''
+
+  const fetchDataProduct = async (params: IParamsProduct) => {
+    setIsLoading(true)
+    try {
+      const response = await PRODUCT.getAllProduct(params)
+      const data = await response
+      setDataProduct(data.data)
+      setParams({
+        ...params,
+        page: data.currentPage
+      })
+      setTotalPages(data.totalPages)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log('🚀 ~ error:', error)
+    }
+  }
+
+  const fetchCategory = async () => {
+    try {
+      const response = await PRODUCT.getAllCategory()
+      const data = await response
+      setCategoryProduct(data)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log('🚀 ~ error:', error)
+    }
+  }
+
+  const fetchTypeCategory = async () => {
+    try {
+      const response = await PRODUCT.getAllTypeCategory()
+      const data = await response
+      setTypeCategoryProduct(data)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log('🚀 ~ error:', error)
+    }
+  }
+
+  const debouncedQuery = useDebounce(query, 500)
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      const updatedParams = { ...params, search: debouncedQuery }
+      setParams(updatedParams)
+      fetchDataProduct(updatedParams)
+    } else {
+      const updatedParams = { ...params, search: '', page: 1, limit: LIMIT_PAGE }
+      setParams(updatedParams)
+      fetchDataProduct(updatedParams)
+    }
+  }, [debouncedQuery])
+
+  useEffect(() => {
+    const updatedParams = { ...params, category: currentCategory, type: currentTypeCategory }
+    setParams(updatedParams)
+    fetchDataProduct(updatedParams)
+  }, [currentCategory, currentTypeCategory])
+
+  const changeSearchParams = (query: string) => {
+    setSearchParams({ query: query })
+  }
+  const handleKeywordChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    query = e.target.value
+    changeSearchParams(query)
+  }
+
+  useEffect(() => {
+    fetchCategory()
+    fetchTypeCategory()
+  }, [])
+  const handlePageClick = (event: { selected: number }) => {
+    const selectedPage = event.selected + 1
+    const updatedParams = { ...params, page: selectedPage }
+    setParams(updatedParams)
+    fetchDataProduct(updatedParams)
+  }
+
+  const handleTypeCategoryChange = (id: string) => {
+    if (currentTypeCategory === id) {
+      setCurrentTypeCategory('')
+    } else {
+      setCurrentTypeCategory(id)
+    }
+  }
+
   return (
     <>
       <header className="w-full h-[351px] md:h-[391px] bg-center xs:bg-[url('/images/products/banner-product-mobile.svg')]   md:bg-[url('/images/products/banner-product.svg')] bg-cover rounded-br-[50px]">
@@ -26,10 +143,11 @@ const Product = () => {
       </header>
 
       <section className="flex overflow-hidden flex-col items-start justify-between w-full gap-5 pt-8 md:w-[90%] mx-auto md:flex-row">
-        {/* versi mobile */}
+        {/* search versi mobile */}
         <div className="relative flex justify-end w-full md:hidden">
           <input
-            type="search"
+            value={query}
+            onChange={handleKeywordChange}
             placeholder="Search Global"
             className="flex justify-end w-[90%] mx-auto md:w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
           />
@@ -37,50 +155,63 @@ const Product = () => {
             <img src="/icons/search.svg" alt="search icon" className="w-full" />
           </div>
         </div>
-        <div className="w-full md:w-[30%] lg:w-[20%] overflow-x-auto p-0 md:p-4 bg-[#F8F8F8]">
+
+        <div className="w-full md:w-[30%] lg:w-[20%] overflow-x-auto p-0 md:p-4 bg-[#F8F8F8] mb-10">
           <ul className="flex flex-row w-full gap-3 overflow-x-scroll md:overflow-x-hidden md:flex-col">
-            <li className="flex-shrink-0 p-3 px-4 text-center text-white rounded-none md:rounded-md md:w-full bg-primary">
-              Rental & Staging
-            </li>
-            <li className="flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full text-slate-400">
-              DOOH
-            </li>
-            <li className="flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full text-slate-400">
-              Comercial
-            </li>
-            <li className="flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full text-slate-400">
-              Rental & Staging
-            </li>
+            {categoryProduct?.map((category) => (
+              <li
+                key={category.id}
+                className={`cursor-pointer flex-shrink-0 p-3 px-4 text-center rounded-none md:rounded-md md:w-full  ${String(category.id) === currentCategory ? 'bg-primary text-white' : 'text-slate-400'}`}
+                onClick={() => setCurrentCategory(String(category.id))}
+              >
+                {category?.name}
+              </li>
+            ))}
           </ul>
 
           <h4 className="text-[#A4A4A4] text-sm font-semibold my-5 hidden md:block">Operating Environment</h4>
+
           <ul className="flex flex-row justify-center gap-5 my-5 md:justify-start md:flex-col md:my-0">
-            <li className="flex items-center justify-start gap-3">
-              <input type="checkbox" id="all" name="all" className="w-4 h-4" />
+            <li
+              className="flex items-center justify-start gap-3"
+              onChange={() => handleTypeCategoryChange(String('all'))}
+            >
+              <input type="checkbox" id="all" name="all" className="w-4 h-4" checked={currentTypeCategory === 'all'} />
               <label htmlFor="all" className="text-[#222222] text-sm md:text-lg font-normal">
-                All
+                all
               </label>
             </li>
-            <li className="flex items-center justify-start gap-3">
-              <input type="checkbox" id="indoor" name="indoor" className="w-4 h-4" />
-              <label htmlFor="indoor" className="text-[#222222] text-sm md:text-lg font-normal">
-                Indoor
-              </label>
-            </li>
-            <li className="flex items-center justify-start gap-3">
-              <input type="checkbox" id="outdoor" name="outdoor" className="w-4 h-4" />
-              <label htmlFor="outdoor" className="text-[#222222] text-sm md:text-lg font-normal">
-                Outdoor
-              </label>
-            </li>
+            {typeCategoryProduct?.map((item) => {
+              return (
+                <li
+                  key={item.id}
+                  className="flex items-center justify-start gap-3"
+                  onChange={() => handleTypeCategoryChange(String(item.id))}
+                >
+                  <input
+                    type="checkbox"
+                    id={String(item.id)}
+                    name={item?.name}
+                    className="w-4 h-4"
+                    checked={currentTypeCategory === String(item.id)}
+                  />
+                  <label htmlFor={String(item?.id)} className="text-[#222222] text-sm md:text-lg font-normal">
+                    {item?.name}
+                  </label>
+                </li>
+              )
+            })}
           </ul>
         </div>
 
         <div className="w-[90%] mx-auto md:[60%] lg:w-[80%]">
-          {/* versi dkstop */}
+          {/* search versi dkstop */}
           <div className="relative justify-end hidden w-full md:flex">
             <input
               type="search"
+              autoFocus
+              value={query}
+              onChange={handleKeywordChange}
               placeholder="Search Global"
               className="flex justify-end w-full md:w-[50%] lg:w-[30%] border border-[#BCBCBC] rounded-full py-2 ps-4 pe-10 outline-none "
             />
@@ -88,144 +219,61 @@ const Product = () => {
               <img src="/icons/search.svg" alt="search icon" className="w-full" />
             </div>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 lg:gap-3 gap-8 overflow-hidden border-0 md:border-t-2 border-[#DEDEDE] pt-5 mt-5 mb-10 md:mb-20">
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md  transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/products/product-list.png"
-                alt="product item"
-                className=" h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]   overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/detail-product/related-product-2.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md  transition-all product-item  h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/detail-product/related-product-1.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex flex-col"
-            >
-              <img
-                src="/images/detail-product/related-product-3.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px]  "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/products/product-list.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/products/product-list.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/products/product-list.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="/detail-product"
-              className="cursor-pointer hover:shadow-md transition-all product-item h-[308px] md:w-[305px] md:h-[435px] 2xl:w-[305px] 2xl:h-[435px]  overflow-hidden flex  flex-col"
-            >
-              <img
-                src="/images/products/product-list.png"
-                alt="product item"
-                className="h-[152px] md:h-[305px] w-[152px] md:w-[305px]  "
-              />
-              <div className="px-2 md:px-5">
-                <h3 className="text-xl font-bold text-black md:text-2xl ">MG9 Series</h3>
-                <div className="gap-2 mt-3 text-[10px] font-semibold md:text-sm flex-flex-col">
-                  <p>Pixel pitch: 2.9/3.9/5.9mm </p>
-                  <p>Cabinet size: 500*500*73mm</p>
-                </div>
-              </div>
-            </Link>
-          </div>
+
+          {isLoading ? (
+            <Loading />
+          ) : dataProduct?.length > 0 ? (
+            <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-10 gap-8 overflow-hidden border-0 md:border-t-2 border-[#DEDEDE] pt-5 mt-5">
+              {dataProduct.map((product) => (
+                <Link
+                  key={product?.id}
+                  to={`/detail-product/${product?.id}`}
+                  className="cursor-pointer hover:shadow-md transition-all product-item h-[238px] md:w-[230px] xl:w-[305px] md:h-[405px] xl:h-[435px] 2xl:w-[305px] 2xl:h-[435px] overflow-hidden flex flex-col"
+                >
+                  <img
+                    src={`${BASE_API}/${product.mainImg[0].link}`}
+                    alt={product?.name}
+                    className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] object-cover"
+                  />
+
+                  <div className="px-2 md:px-5">
+                    <h3 className="h-8 mt-1 overflow-hidden font-bold text-black text-md line-clamp-1 md:line-clamp-none md:text-2xl">
+                      {product?.name}
+                    </h3>
+                    <div className="gap-2 md:mt-3 text-[10px] font-semibold md:text-sm flex flex-col">
+                      <p className="line-clamp-1">{product?.detailsHome}</p>
+                      <p className="line-clamp-1">{product?.categoryProduct.name}</p>
+                      <p className="line-clamp-1">{product?.Type.name}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="w-full pt-0 mb-16 text-sm text-center md:mb-0 md:pt-20 md:text-xl">Product Tidak Tersedia</p>
+          )}
+
+          {dataProduct?.length > 0 ? (
+            <ReactPaginate
+              previousLabel={'Previous'}
+              nextLabel={'Next'}
+              breakLabel={'...'}
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination'}
+              pageClassName={'page-item'}
+              pageLinkClassName={'page-link'}
+              previousClassName={'page-item'}
+              previousLinkClassName={'page-link'}
+              nextClassName={'page-item'}
+              nextLinkClassName={'page-link'}
+              breakClassName={'page-item'}
+              breakLinkClassName={'page-link'}
+              activeClassName={'active'}
+            />
+          ) : null}
         </div>
       </section>
     </>

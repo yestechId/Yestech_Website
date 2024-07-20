@@ -11,6 +11,7 @@ const NewsRead = () => {
   const navigate = useNavigate()
   const [data, setdata] = useState<IDetailNews | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
   const fetchData = async (id: number) => {
     setIsLoading(true)
     try {

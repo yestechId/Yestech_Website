@@ -32,9 +32,11 @@ const ContactUs = () => {
 
   const handleSubmitForm = (data: IContactForm) => {
     const message = `Name  : ${data.name} 
-  Phone : ${data.phone} 
-  Email  : ${data.email}`
+Phone : ${data.phone} 
+Email  : ${data.email}
+Message : 'Default message`
     window.open(`https://api.whatsapp.com/send?phone=6281288162075&text=${encodeURIComponent(message)}`, '_blank')
+    // window.open(`https://api.whatsapp.com/send?phone=6282312852620&text=${encodeURIComponent(message)}`, '_blank')
   }
   return (
     <section className="relative overflow-hidden top-0 right-0 left-0 bottom-0 w-full py-20 min-h-screen bg-[#10121D] flex-center gap-3 md:gap-5 flex-col ">

@@ -12,6 +12,7 @@ const News = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [dataBanner, setDataBanner] = useState<INewsHome | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
   const fetchData = async () => {
     setIsLoading(true)
     try {

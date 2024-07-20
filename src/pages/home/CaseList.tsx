@@ -4,6 +4,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import { BASE_API } from '../../config/env'
 import { ICaseListHome } from '../../types/ICaseListHome'
+import Skeleton from '../../components/atoms/Skeleton'
 const CaseList = () => {
   const [data, setData] = useState<ICaseListHome[]>([])
   const [currentCaseIndex, setCurrentCaseIndex] = useState(0)
@@ -46,7 +47,7 @@ const CaseList = () => {
   }, [])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Skeleton />
   }
 
   const currentCase = data[currentCaseIndex]
