@@ -10,7 +10,6 @@ interface IRelatedProduct {
   paramsProduct: IParamsProduct
 }
 const RelatedProduct: React.FC<IRelatedProduct> = ({ paramsProduct }) => {
-  console.log('🚀 ~ paramsProduct:', paramsProduct)
   const [dataProduct, setDataProduct] = useState<IProduct[]>([])
   const [isLoading, setIsLoading] = useState(true)
 

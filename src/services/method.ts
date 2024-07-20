@@ -28,7 +28,6 @@ export const GETDETAIL = async (path: string, id: number) => {
 }
 
 export const GETPAGINATION = async (path: string, params: IParamsProduct) => {
-  console.log('🚀 ~ GETPAGINATION ~ search:', params.search)
   try {
     const response = await axios.get(
       `${BASE_API}${path}?categoryId=${params.category}&search=${params.search}&page=${params.page}&perpage=${params.limit}&typeId=${params.type}`
