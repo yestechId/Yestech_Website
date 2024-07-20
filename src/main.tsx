@@ -11,7 +11,6 @@ import Skeleton from './components/atoms/Skeleton'
 // Import komponen-komponen yang akan digunakan
 const Home = lazy(() => import('./pages/home'))
 const Products = lazy(() => import('./pages/products'))
-const CustomCarousel = lazy(() => import('./pages/carousel'))
 const DetailProduct = lazy(() => import('./pages/product-detail'))
 const News = lazy(() => import('./pages/news'))
 const ContactUs = lazy(() => import('./pages/contact-us'))
@@ -75,10 +74,6 @@ const app = createBrowserRouter([
         <AboutUs />
       </MainLayout>
     )
-  },
-  {
-    path: '/carousel',
-    element: <CustomCarousel />
   }
 ])
 
