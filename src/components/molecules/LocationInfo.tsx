@@ -17,7 +17,7 @@ const LocationInfo: React.FC<ILocations> = ({ currentData, name, isHovered, hand
               <div className="grid grid-cols-2 gap-5">
                 {currentData?.map((item, index) => (
                   <li key={index} className=" w-[109px]  rounded-2xl h-auto flex-center">
-                    <img src={`${BASE_API}/${item.image}`} />
+                    <img src={`${BASE_API}/${item?.image}`} />
                   </li>
                 ))}
               </div>
@@ -38,7 +38,7 @@ const LocationInfo: React.FC<ILocations> = ({ currentData, name, isHovered, hand
             <ul className="w-full flex-center">
               {currentData?.map((item, index) => (
                 <li key={index} className=" w-[109px] rounded-2xl h-auto flex-center">
-                  <img src={`${BASE_API}/${item.image}`} />
+                  <img src={`${BASE_API}/${item?.image}`} />
                 </li>
               ))}
             </ul>
@@ -58,7 +58,7 @@ const LocationInfo: React.FC<ILocations> = ({ currentData, name, isHovered, hand
             <ul className="w-full gap-2 flex-center ">
               {currentData?.map((item, index) => (
                 <li key={index} className=" w-[109px] rounded-2xl h-auto flex-center">
-                  <img src={`${BASE_API}/${item.image}`} />
+                  <img src={`${BASE_API}/${item?.image}`} />
                 </li>
               ))}
             </ul>
@@ -74,7 +74,7 @@ const LocationInfo: React.FC<ILocations> = ({ currentData, name, isHovered, hand
             <ul className="w-full flex-center">
               {currentData?.map((item, index) => (
                 <li key={index} className=" w-[109px]  rounded-2xl h-auto flex-center">
-                  <img src={`${BASE_API}/${item.image}`} alt={item.name} />
+                  <img src={`${BASE_API}/${item?.image}`} alt={item?.name} />
                 </li>
               ))}
             </ul>

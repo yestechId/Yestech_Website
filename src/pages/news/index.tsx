@@ -124,7 +124,7 @@ const News = () => {
               <img src="/icons/arrow-right-grey.svg" alt="icon right grey" className="w-full" />
             </div>
             <div className="gap-2 mt-3 mb-5 md:mt-5 md:mb-10 left-32 bottom-8 flex-center">
-              {dataBanner?.imageNews.map((_, index) => (
+              {dataBanner?.imageNews?.map((_, index) => (
                 <span
                   key={index}
                   className={`cursor-pointer block w-2 h-2 rounded-full ${currentImageIndex === index ? 'bg-primary' : 'bg-slate-300'}`}

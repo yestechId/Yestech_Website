@@ -48,17 +48,6 @@ const AboutUs = () => {
           <div
             className={`${isScrolled ? 'md:fixed static w-full md:w-[30%] lg:w-[20%]' : 'md:sticky static w-full'}  top-0 md:top-24 lg:top-20 left-0 z-40 ps-0 md:ps-10 lg:ps-14 h-full px-2 lg:pt-20 pt-0 border-r-2`}
           >
-            {/* <ul className="flex flex-row w-full gap-3 px-0 overflow-x-scroll bg-white lg:overflow-x-visible md:px-5 md:flex-col ">
-              <li className="flex-shrink-0 p-3 text-center text-white rounded-sm bg-primary">Company Profile</li>
-              <li className="flex-shrink-0 p-3 text-center rounded-sm text-slate-400 ">Corporate Culture</li>
-
-              <li className="flex-shrink-0 p-3 text-center rounded-sm text-slate-400 ">
-                <ScrollLink to="history" smooth={true} duration={500}>
-                  History
-                </ScrollLink>
-              </li>
-              <li className="flex-shrink-0 p-3 text-center rounded-sm text-slate-400 ">Rental & Staging</li>
-            </ul> */}
             <ul className="flex flex-row w-full gap-3 px-0 overflow-x-scroll bg-white lg:overflow-x-visible md:px-5 md:flex-col">
               <li
                 className={`flex-shrink-0 p-3 text-center  rounded-sm cursor-pointer ${

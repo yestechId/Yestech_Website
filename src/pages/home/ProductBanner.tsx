@@ -123,12 +123,12 @@ const ProductBanner = () => {
               <li
                 key={category.id}
                 onClick={() => {
-                  setCurrentCategory(String(category.id))
-                  setCurrentNameCategory(category.name)
+                  setCurrentCategory(String(category?.id))
+                  setCurrentNameCategory(category?.name)
                 }}
                 className="p-2 font-normal text-black"
               >
-                {category.name}
+                {category?.name}
               </li>
             ))}
           </ul>
@@ -165,9 +165,9 @@ const ProductBanner = () => {
                   key={product.id}
                   // onClick={() => setCurrentProduct(product)}
                   onMouseEnter={() => setCurrentProduct(product)}
-                  className={`${product.id === currentProduct?.id ? 'font-bold' : ' font-normal'} text-black cursor-pointer`}
+                  className={`${product?.id === currentProduct?.id ? 'font-bold' : ' font-normal'} text-black cursor-pointer`}
                 >
-                  {product.name}
+                  {product?.name}
                 </li>
               ))}
             </ul>

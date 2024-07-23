@@ -119,9 +119,9 @@ const Banner = () => {
                     <div className="flex flex-col gap-0 pt-20 md:gap-2 xs:items-center md:items-start md:pt-0">
                       <h1 className="text-[#FF3237] md:text-6xl xs:text-4xl font-bold">New !</h1>
                       <h2 className="font-bold text-white xs:text-[2rem] md:text-[4.5rem]  line-clamp-1">
-                        {item.title}
+                        {item?.title}
                       </h2>
-                      <p className="font-normal text-white xs:text-xs md:text-2xl">{item.details}</p>
+                      <p className="font-normal text-white xs:text-xs md:text-2xl">{item?.details}</p>
                       <Link
                         to={item.link}
                         target="_blank"
@@ -134,7 +134,7 @@ const Banner = () => {
 
                   <div className="md:w-[40%] mt-10 md:mt-0 top-0  px-5 md:px-0 md:-top-80 w-full  relative md:left-[60%]   flex-center pt-0">
                     <img
-                      src={`${BASE_API}/${item.imageBanner}`}
+                      src={`${BASE_API}/${item?.imageBanner}`}
                       alt={item.title}
                       className="object-cover object-center w-full h-auto rounded-lg"
                     />
@@ -158,8 +158,8 @@ const Banner = () => {
                   }`}
                 >
                   <span className="w-6 h-6 text-xs font-bold border-2 rounded-full flex-center">{index + 1}</span>
-                  <h3 className="-mt-6 text-sm w-44 text-start ms-10 line-clamp-2">{item.title}</h3>
-                  <p className="text-xs font-medium text-start ms-10 line-clamp-1">{item.details}</p>
+                  <h3 className="-mt-6 text-sm w-44 text-start ms-10 line-clamp-2">{item?.title}</h3>
+                  <p className="text-xs font-medium text-start ms-10 line-clamp-1">{item?.details}</p>
                 </div>
               ))}
             </Slider>
@@ -179,8 +179,8 @@ const Banner = () => {
                   }`}
                 >
                   <span className="w-6 h-6 text-xs font-bold border-2 rounded-full flex-center">{index + 1}</span>
-                  <h3 className="-mt-6 text-sm text-start ms-10 line-clamp-2">{item.title}</h3>
-                  <p className="text-xs font-medium text-start ms-10 line-clamp-1">{item.details}</p>
+                  <h3 className="-mt-6 text-sm text-start ms-10 line-clamp-2">{item?.title}</h3>
+                  <p className="text-xs font-medium text-start ms-10 line-clamp-1">{item?.details}</p>
                 </div>
               ))}
             </Slider>

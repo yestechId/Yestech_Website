@@ -61,7 +61,7 @@ const NewsRead = () => {
               </h2>
               <div className="flex flex-col-reverse justify-center w-full gap-5 md:flex-col ">
                 <div className="flex items-start justify-start w-full ">
-                  <img src={`${BASE_API}/${data?.imageNews[0].link}`} className="object-cover w-full h-auto" />
+                  <img src={`${BASE_API}/${data?.imageNews[0]?.link}`} className="object-cover w-full h-auto" />
                 </div>
                 <ul className="flex justify-between md:justify-center items-center -mt-3 md:-mt-0 gap-2 md:gap-10 text-[10px] md:text-xs text-[#3E3232] opacity-100 md:opacity-70 font-medium ">
                   <li className="gap-3 flex-center ">
@@ -94,7 +94,7 @@ const NewsRead = () => {
                     <div className="flex flex-col w-full gap-3 px-0 md:gap-5 lg:px-8 ">
                       <article
                         className="text-sm font-semibold md:text-xl md:font-medium"
-                        dangerouslySetInnerHTML={{ __html: detail.text ?? '' }}
+                        dangerouslySetInnerHTML={{ __html: detail?.text ?? '' }}
                       />
                     </div>
                     <div className="flex-center w-full md:w-[80%] mx-auto">

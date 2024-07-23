@@ -186,14 +186,14 @@ const Product = () => {
                 <li
                   key={item.id}
                   className="flex items-center justify-start gap-3"
-                  onChange={() => handleTypeCategoryChange(String(item.id))}
+                  onChange={() => handleTypeCategoryChange(String(item?.id))}
                 >
                   <input
                     type="checkbox"
-                    id={String(item.id)}
+                    id={String(item?.id)}
                     name={item?.name}
                     className="w-4 h-4"
-                    checked={currentTypeCategory === String(item.id)}
+                    checked={currentTypeCategory === String(item?.id)}
                   />
                   <label htmlFor={String(item?.id)} className="text-[#222222] text-sm md:text-lg font-normal">
                     {item?.name}
@@ -231,7 +231,7 @@ const Product = () => {
                   className="cursor-pointer hover:shadow-md transition-all product-item h-[238px] md:w-[230px] xl:w-[305px] md:h-[405px] xl:h-[435px] 2xl:w-[305px] 2xl:h-[435px] overflow-hidden flex flex-col"
                 >
                   <img
-                    src={`${BASE_API}/${product.mainImg[0].link}`}
+                    src={`${BASE_API}/${product.mainImg[0]?.link}`}
                     alt={product?.name}
                     className="h-[152px] md:h-[305px] w-[152px] md:w-[305px] object-cover"
                   />
@@ -242,8 +242,8 @@ const Product = () => {
                     </h3>
                     <div className="gap-2 md:mt-3 text-[10px] font-semibold md:text-sm flex flex-col">
                       <p className="line-clamp-1">{product?.detailsHome}</p>
-                      <p className="line-clamp-1">{product?.categoryProduct.name}</p>
-                      <p className="line-clamp-1">{product?.Type.name}</p>
+                      <p className="line-clamp-1">{product?.categoryProduct?.name}</p>
+                      <p className="line-clamp-1">{product?.Type?.name}</p>
                     </div>
                   </div>
                 </Link>

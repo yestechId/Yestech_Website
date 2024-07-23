@@ -49,8 +49,8 @@ const DownloadTable: FC<DownloadTableProps> = ({ parameters }) => {
           <tbody>
             {parameters.map((param, rowIndex) => (
               <tr key={rowIndex} className="text-xs border-b md:text-sm border-slate-50 border-opacity-10">
-                <td className="p-2 text-white">{param.tHead}</td>
-                {param.tBody.map((body, colIndex) => (
+                <td className="p-2 text-white">{param?.tHead}</td>
+                {param?.tBody.map((body, colIndex) => (
                   <td key={colIndex} className="table-cell p-2 text-white ">
                     {body}
                   </td>
@@ -60,19 +60,6 @@ const DownloadTable: FC<DownloadTableProps> = ({ parameters }) => {
           </tbody>
         </table>
       </div>
-
-      {/* <div className="w-full px-0 mb-5 -mt-5 md:mb-10 md:-mt-0 md:px-10 flex-center">
-        <img
-          src="/images/detail-product/tabel-parameters.png"
-          alt="list detail"
-          className="hidden w-full h-auto md:block"
-        />
-        <img
-          src="/images/detail-product/tabel-parameters-mobile.png"
-          alt="list detail"
-          className="w-full h-auto md:hidden"
-        />
-      </div> */}
     </section>
   )
 }
